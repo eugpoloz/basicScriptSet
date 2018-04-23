@@ -9,7 +9,7 @@ type DefaultIcon = {
 type ForbidEditingProfiles = Array<number>;
 
 type FastLogin = {
-  after: string,
+  after?: string,
   logins: Array<{
     login: string,
     password: string,
@@ -103,21 +103,12 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
         submit.click();
       }
 
-      const appendedLogins = logins.reduce(
-        (acc, { id, link, login, password }, idx) => {
-          const liID = id || `navAdd${idx}`;
-          const html = `<li id="#${liID}"><a class="js_login" style="cursor: pointer;" data-login="${login}" data-password="${password}">${link}</a></li>`;
+      logins.forEach(({ id, link, login, password }, idx) => {
+        const liID = id || `navAdd${idx}`;
+        const html = `<li id="${liID}"><a class="js_login" style="cursor: pointer;" data-login="${login}" data-password="${password}">${link}</a></li>`;
 
-          acc = acc + html;
-
-          return acc;
-        },
-        ""
-      );
-
-      document
-        .getElementById(after)
-        .insertAdjacentHTML("afterend", appendedLogins);
+        document.getElementById(after).insertAdjacentHTML("afterend", html);
+      });
 
       document
         .querySelectorAll("a.js_login")
@@ -126,26 +117,25 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
   }
 
   // ...and let's call those based on passed props and their availability
-  if (typeof defaultIcon === "object") {
-    setDefaultIcon(defaultIcon);
+  if (typeof fastLogin === "object" && Array.isArray(fastLogin.logins)) {
+    createFastLoginLinks(fastLogin);
   }
 
   if (Array.isArray(forbidEditingProfiles)) {
     disableProfileEditing(forbidEditingProfiles);
   }
 
-  if (typeof fastLogin === "object" && Array.isArray(fastLogin.logins)) {
-    createFastLoginLinks(fastLogin);
+  if (typeof defaultIcon === "object") {
+    setDefaultIcon(defaultIcon);
   }
 }
 
 basicScriptSet({
-  forbidEditingProfiles: [], // айди профилей в квадратных скобках через запятую
+  forbidEditingProfiles: [3], // айди профилей в квадратных скобках через запятую
   defaultIcon: {
     icon: "http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" // ссылка
   },
   fastLogin: {
-    after: "navlogin",
     logins: [
       {
         login: "reader test",
