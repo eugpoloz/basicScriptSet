@@ -58,15 +58,18 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
 
   async function disableProfileEditing(profileArray = []) {
     if (profileArray.length > 0) {
-      profileArray.forEach(uID => {
-        if (UserID === uID && document.URL.includes("profile.php")) {
+      for (let i = 0; i < profileArray.length; i++) {
+        if (
+          UserID === profileArray[i] &&
+          document.URL.includes("profile.php")
+        ) {
           const profile = document.getElementById("profile");
 
           profile.innerHTML = `<p style="margin: 1em 0; line-height: 2">
           Редактирование данного профиля для вас запрещено.
         </p>`;
         }
-      });
+      }
     }
   }
 
