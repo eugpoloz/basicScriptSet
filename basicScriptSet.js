@@ -101,20 +101,24 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
         submit.click();
       }
 
-      logins.forEach(({ id, link, login, password }, idx) => {
-        const liID = id || `navAdd${idx}`;
-        const html = `<li id="${liID}"><a class="js_login" style="cursor: pointer;" data-login="${login}" data-password="${password}">${link}</a></li>`;
+      if (logins.length > 0) {
+        const loginMap = logins.map(({ id, link, login, password }, i) => {
+          const liID = id || `navAdd${i}`;
 
-        document.getElementById(after).insertAdjacentHTML("afterend", html);
-      });
+          return `<li id="${liID}"><a class="js_login" style="cursor: pointer;" data-login="${login}" data-password="${password}">${link}</a></li>`;
+        });
 
-      document
-        .querySelectorAll("a.js_login")
-        .forEach(node => node.addEventListener("click", handleFastLoginClick));
+        document
+          .getElementById(after)
+          .insertAdjacentHTML("afterend", loginMap.join(""));
+
+        document
+          .querySelectorAll("a.js_login")
+          .forEach(node =>
+            node.addEventListener("click", handleFastLoginClick)
+          );
+      }
     }
-  }
-
-
   }
 
   // ...and let's call those!
@@ -125,7 +129,7 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
 }
 
 basicScriptSet({
-  forbidEditingProfiles: [3], // айди профилей в квадратных скобках через запятую
+  forbidEditingProfiles: [4], // айди профилей в квадратных скобках через запятую
   defaultIcon: {
     icon: "http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" // ссылка
   },
