@@ -26,9 +26,7 @@ type Options = {
 
 // basic function
 function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
-  // we don't need any configuration for this poor thing, so
-  // let's use iife here
-  (function originalUploadedFirst() {
+  async function originalUploadedFirst() {
     if (typeof FORUM.topic === "object") {
       const insertFormat = document.getElementById("image-insert-format");
 
@@ -41,10 +39,10 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
 
       insertFormat.innerHTML = html;
     }
-  })();
+  }
 
   // our helper functions
-  function setDefaultIcon({ icon, after = ".pa-title" }) {
+  async function setDefaultIcon({ icon, after = ".pa-title" }) {
     if (typeof icon === "string" && typeof FORUM.topic === "object") {
       document.querySelectorAll(".post-author ul").forEach(author => {
         if (author.querySelector(".pa-avatar")) return;
@@ -58,7 +56,7 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
     }
   }
 
-  function disableProfileEditing(profileArray = []) {
+  async function disableProfileEditing(profileArray = []) {
     if (profileArray.length > 0) {
       profileArray.forEach(uID => {
         if (UserID === uID && document.URL.includes("profile.php")) {
@@ -72,7 +70,7 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
     }
   }
 
-  function createFastLoginLinks({ after = "navlogin", logins }) {
+  async function createFastLoginLinks({ after = "navlogin", logins = [] }) {
     if (GroupID === 3) {
       function handleFastLoginClick({ target }) {
         const html = `<div id="additional_login" style="display: none">
@@ -116,18 +114,14 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
     }
   }
 
-  // ...and let's call those based on passed props and their availability
-  if (typeof fastLogin === "object" && Array.isArray(fastLogin.logins)) {
-    createFastLoginLinks(fastLogin);
+
   }
 
-  if (Array.isArray(forbidEditingProfiles)) {
-    disableProfileEditing(forbidEditingProfiles);
-  }
-
-  if (typeof defaultIcon === "object") {
-    setDefaultIcon(defaultIcon);
-  }
+  // ...and let's call those!
+  originalUploadedFirst();
+  createFastLoginLinks(fastLogin);
+  disableProfileEditing(forbidEditingProfiles);
+  setDefaultIcon(defaultIcon);
 }
 
 basicScriptSet({
