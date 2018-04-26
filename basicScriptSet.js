@@ -1,4 +1,16 @@
 // @flow
+"use strict";
+
+/*
+  basicScriptSet
+  v0.0.1
+  author: eugpoloz (грандоченька смерти)
+  license: MIT
+
+  вопросы и поддержка:
+  — https://github.com/eugpoloz/basicScriptSet
+  — http://urchoice.rolka.su/profile.php?id=4789
+*/
 
 // type definitions
 type DefaultIcon = {
