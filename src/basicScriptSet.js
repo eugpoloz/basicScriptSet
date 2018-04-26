@@ -86,26 +86,26 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     profiles = [],
     message = "Редактирование данного профиля для вас запрещено."
   }: DisabledProfiles) {
-    if (profiles.length > 0) {
+    // form jQuery method that checks if main #pun is ready (I guess)
+    // this is useful for us tho
+    $(document).pun_mainReady(() => {
       const profile = document.getElementById("profile");
-      const innerHTML = `<p style="margin: 1em 0; line-height: 2">${message}</p>`;
+      if (profile) {
+        profile.style.display = "none";
 
-      // form jQuery method that checks if main #pun is ready (I guess)
-      // this is useful for us tho
-      $(document).pun_mainReady(() => {
-        if (profile) {
-          profile.style.display = "none";
+        if (profiles.length > 0) {
+          const innerHTML = `<p style="margin: 1em 0; line-height: 2">${message}</p>`;
 
           profiles.forEach(disabled => {
             if (UserID === disabled) {
               return (profile.innerHTML = innerHTML);
             }
           });
-
-          profile.style.display = "block";
         }
-      });
-    }
+
+        profile.style.display = "";
+      }
+    });
   }
 
   async function createFastLoginLinks({
@@ -176,9 +176,9 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   }
 
   // calling functions w/ passed props
+  disableProfileEditing(disabledProfiles);
   setDefaultIcon(defaultIcon);
   createFastLoginLinks(fastLogin);
-  disableProfileEditing(disabledProfiles);
 }
 
 // possible config for reference:
