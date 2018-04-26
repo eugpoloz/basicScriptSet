@@ -40,7 +40,9 @@ function basicScriptSet({
   defaultIcon,
   fastLogin
 }: Options) {
-  async function originalUploadedFirst() {
+  // сначала оригинал загруженного изображения
+  // loaded img original first
+  (async function originalUploadedFirst() {
     if (typeof FORUM.editor === "object") {
       const insertFormat = document.getElementById("image-insert-format");
 
@@ -53,10 +55,10 @@ function basicScriptSet({
 
       insertFormat.innerHTML = html;
     }
-  }
+  })();
 
-  // our helper functions
-  async function setDefaultIcon({ icon, after = ".pa-title" }: FastLogin) {
+  // various helper functions
+  async function setDefaultIcon({ icon, after = ".pa-title" }: DefaultIcon) {
     if (typeof icon === "string" && typeof FORUM.topic === "object") {
       document.querySelectorAll(".post-author ul").forEach(author => {
         if (author.querySelector(".pa-avatar")) return;
@@ -141,13 +143,13 @@ function basicScriptSet({
     }
   }
 
-  // ...and let's call those!
-  originalUploadedFirst();
+  // calling functions w/ passed props
   createFastLoginLinks(fastLogin);
   disableProfileEditing(forbidEditingProfiles);
   setDefaultIcon(defaultIcon);
 }
 
+// possible config for reference:
 // basicScriptSet({
 //   forbidEditingProfiles: [4], // айди профилей в квадратных скобках через запятую
 //   defaultIcon: {
