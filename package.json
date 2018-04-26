@@ -4,12 +4,22 @@
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-minify": "^0.4.0"
   },
   "babel": {
     "comments": false,
+    "plugins": [
+      [
+        "transform-runtime",
+        {
+          "polyfill": false,
+          "regenerator": true
+        }
+      ]
+    ],
     "presets": [
       ["flow"],
       [

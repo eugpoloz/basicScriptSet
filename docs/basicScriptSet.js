@@ -1,19 +1,29 @@
 
 "use strict";
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _regenerator = require("babel-runtime/regenerator");
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _typeof2 = require("babel-runtime/helpers/typeof");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function basicScriptSet(_ref) {
   var originalUploadedFirst = function () {
-    var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+    var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
       var insertFormat, html;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
+      return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (_typeof(FORUM.editor) === "object") {
+              if ((0, _typeof3.default)(FORUM.editor) === "object") {
                 insertFormat = document.getElementById("image-insert-format");
                 html = "<strong>\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043A\u0430\u043A:</strong>\n      <br><br>\n      <select id=\"selected-insert-format\">\n        <option value=\"viewer\">\u041F\u0440\u0435\u0432\u044C\u044E</option>\n        <option value=\"source\" selected>\u041E\u0440\u0438\u0433\u0438\u043D\u0430\u043B</option>\n      </select>";
 
@@ -35,15 +45,15 @@ function basicScriptSet(_ref) {
   }();
 
   var setDefaultIcon = function () {
-    var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(_ref3) {
+    var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(_ref3) {
       var icon = _ref3.icon,
           _ref3$after = _ref3.after,
           after = _ref3$after === undefined ? ".pa-title" : _ref3$after;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      return _regenerator2.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              if (typeof icon === "string" && _typeof(FORUM.topic) === "object") {
+              if (typeof icon === "string" && (0, _typeof3.default)(FORUM.topic) === "object") {
                 document.querySelectorAll(".post-author ul").forEach(function (author) {
                   if (author.querySelector(".pa-avatar")) return;
 
@@ -69,10 +79,10 @@ function basicScriptSet(_ref) {
   }();
 
   var disableProfileEditing = function () {
-    var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3() {
+    var _ref5 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
       var profileArray = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       var i, profile;
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      return _regenerator2.default.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
@@ -101,13 +111,13 @@ function basicScriptSet(_ref) {
   }();
 
   var createFastLoginLinks = function () {
-    var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(_ref6) {
+    var _ref7 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(_ref6) {
       var _ref6$after = _ref6.after,
           after = _ref6$after === undefined ? "navlogin" : _ref6$after,
           _ref6$logins = _ref6.logins,
           logins = _ref6$logins === undefined ? [] : _ref6$logins;
       var handleFastLoginClick, loginMap;
-      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      return _regenerator2.default.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
