@@ -33,17 +33,13 @@ type FastLogin = {
 };
 
 type Options = {
-  forbidEditingProfiles?: Array<number>,
+  disabledProfiles?: Array<number>,
   defaultIcon?: DefaultIcon,
   fastLogin?: FastLogin
 };
 
 // basic function
-function basicScriptSet({
-  forbidEditingProfiles,
-  defaultIcon,
-  fastLogin
-}: Options) {
+function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   // сначала оригинал загруженного изображения
   // loaded img original first
   (async function originalUploadedFirst() {
@@ -81,13 +77,10 @@ function basicScriptSet({
     }
   }
 
-  async function disableProfileEditing(profileArray: Array<number>) {
-    if (profileArray.length > 0) {
-      for (let i = 0; i < profileArray.length; i++) {
-        if (
-          UserID === profileArray[i] &&
-          document.URL.includes("profile.php")
-        ) {
+  async function disableProfileEditing(profiles: Array<number>) {
+    if (profiles.length > 0) {
+      for (let i = 0; i < profiles.length; i++) {
+        if (UserID === profiles[i] && document.URL.includes("profile.php")) {
           const profile = document.getElementById("profile");
 
           if (profile) {
@@ -164,15 +157,21 @@ function basicScriptSet({
     }
   }
 
+  const initial = {
+    fastLogin: { after: "navlogin", logins: [] },
+    disabledProfiles: [],
+    defaultIcon: { after: ".pa-title" }
+  };
+
   // calling functions w/ passed props
-  createFastLoginLinks(fastLogin);
-  disableProfileEditing(forbidEditingProfiles);
-  setDefaultIcon(defaultIcon);
+  createFastLoginLinks(fastLogin || initial.fastLogin);
+  disableProfileEditing(disabledProfiles || initial.disabledProfiles);
+  setDefaultIcon(defaultIcon || initial.defaultIcon);
 }
 
 // possible config for reference:
 // basicScriptSet({
-//   forbidEditingProfiles: [4], // айди профилей в квадратных скобках через запятую
+//   disabledProfiles: [4], // айди профилей в квадратных скобках через запятую
 //   defaultIcon: {
 //     icon: "http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" // ссылка
 //   },
