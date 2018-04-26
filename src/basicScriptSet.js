@@ -12,14 +12,18 @@
   — http://urchoice.rolka.su/profile.php?id=4789
 */
 
-// type definitions
+// type definitions and global variables
+declare var FORUM: any;
+declare var UserID: any;
+declare var GroupID: any;
+
 type DefaultIcon = {
-  icon: string,
-  after?: string
+  icon?: string,
+  after: string
 };
 
 type FastLogin = {
-  after?: string,
+  after: string,
   logins: Array<{
     login: string,
     password: string,
@@ -53,26 +57,31 @@ function basicScriptSet({
         <option value="source" selected>Оригинал</option>
       </select>`;
 
-      insertFormat.innerHTML = html;
+      if (insertFormat) {
+        return (insertFormat.innerHTML = html);
+      }
     }
   })();
 
   // various helper functions
-  async function setDefaultIcon({ icon, after = ".pa-title" }: DefaultIcon) {
-    if (typeof icon === "string" && typeof FORUM.topic === "object") {
+  async function setDefaultIcon({ icon, after }: DefaultIcon) {
+    if (icon !== undefined && typeof FORUM.topic === "object") {
       document.querySelectorAll(".post-author ul").forEach(author => {
         if (author.querySelector(".pa-avatar")) return;
 
         const el = author.querySelector(after);
-        const alt = author.querySelector(".pa-author a").textContent || "guest";
+        const authorLink = author.querySelector(".pa-author a");
+        const alt = (authorLink && authorLink.textContent) || "guest";
         const html = `<li class="pa-avatar item2 default-icon"><img src="${icon}" alt="${alt}" style="cursor: pointer;"></li>`;
 
-        return el.insertAdjacentHTML("afterend", html);
+        if (el) {
+          return el.insertAdjacentHTML("afterend", html);
+        }
       });
     }
   }
 
-  async function disableProfileEditing(profileArray: Array<number> = []) {
+  async function disableProfileEditing(profileArray: Array<number>) {
     if (profileArray.length > 0) {
       for (let i = 0; i < profileArray.length; i++) {
         if (
@@ -81,20 +90,19 @@ function basicScriptSet({
         ) {
           const profile = document.getElementById("profile");
 
-          profile.innerHTML = `<p style="margin: 1em 0; line-height: 2">
+          if (profile) {
+            profile.innerHTML = `<p style="margin: 1em 0; line-height: 2">
           Редактирование данного профиля для вас запрещено.
         </p>`;
+          }
         }
       }
     }
   }
 
-  async function createFastLoginLinks({
-    after = "navlogin",
-    logins = []
-  }: FastLogin) {
+  async function createFastLoginLinks({ after, logins }: FastLogin) {
     if (GroupID === 3) {
-      function handleFastLoginClick({ target }) {
+      function handleFastLoginClick({ target }: { target: EventTarget }) {
         const html = `<div id="additional_login" style="display: none">
           <form id="form_login" name="login" method="post" action="/login.php?action=in" onsubmit="return check_form()">
             <fieldset>
@@ -106,21 +114,34 @@ function basicScriptSet({
           </form>
         </div>`;
 
-        document
-          .getElementById("pun-navlinks")
-          .insertAdjacentHTML("afterend", html);
+        const navlinks = document.getElementById("pun-navlinks");
 
-        const { login, password } = target.dataset;
+        if (navlinks) {
+          navlinks.insertAdjacentHTML("afterend", html);
+        }
 
-        const form = document.querySelector("#additional_login #form_login");
-        const loginInput = form.querySelector("#fld1");
-        const passwordInput = form.querySelector("#fld2");
-        const submit = form.querySelector("input[type='submit']");
+        if (target instanceof HTMLElement) {
+          const { login, password } = target.dataset;
 
-        loginInput.value = login;
-        passwordInput.value = password;
+          const form = document.querySelector("#additional_login #form_login");
+          if (form) {
+            const loginInput = form.querySelector("#fld1");
+            const passwordInput = form.querySelector("#fld2");
+            const submit = form.querySelector("input[type='submit']");
 
-        submit.click();
+            if (loginInput instanceof HTMLInputElement) {
+              loginInput.value = login;
+            }
+            if (passwordInput instanceof HTMLInputElement) {
+              passwordInput.value = password;
+            }
+
+            if (submit) {
+              // TODO: refactor from jQuery plz
+              return submit.click();
+            }
+          }
+        }
       }
 
       if (logins.length > 0) {
@@ -130,14 +151,14 @@ function basicScriptSet({
           return `<li id="${liID}"><a class="js_login" style="cursor: pointer;" data-login="${login}" data-password="${password}">${link}</a></li>`;
         });
 
-        document
-          .getElementById(after)
-          .insertAdjacentHTML("afterend", loginMap.join(""));
+        const afterEl = document.getElementById(after);
+        afterEl && afterEl.insertAdjacentHTML("afterend", loginMap.join(""));
 
         document
           .querySelectorAll("a.js_login")
-          .forEach(node =>
-            node.addEventListener("click", handleFastLoginClick)
+          .forEach(
+            (node: HTMLElement) =>
+              node && node.addEventListener("click", handleFastLoginClick)
           );
       }
     }
