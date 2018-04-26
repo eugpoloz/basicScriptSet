@@ -18,11 +18,11 @@ declare var GroupID: any;
 
 type DefaultIcon = {
   icon?: string,
-  after: string
+  after?: string
 };
 
 type FastLogin = {
-  after: string,
+  after?: string,
   logins: Array<{
     login: string,
     password: string,
@@ -33,7 +33,7 @@ type FastLogin = {
 
 type DisabledProfiles = {
   profiles: Array<number>,
-  message: string
+  message?: string
 };
 
 type Options = {
@@ -64,12 +64,12 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   })();
 
   // various helper functions
-  async function setDefaultIcon({ icon, after }: DefaultIcon) {
+  async function setDefaultIcon({ icon, after = ".pa-title" }: DefaultIcon) {
     if (icon !== undefined && typeof FORUM.topic === "object") {
       document.querySelectorAll(".post-author ul").forEach(author => {
         if (author.querySelector(".pa-avatar")) return;
 
-        const el = author.querySelector(after);
+        const el = after && author.querySelector(after);
         const authorLink = author.querySelector(".pa-author a");
         const alt = (authorLink && authorLink.textContent) || "guest";
         const html = `<li class="pa-avatar item2 default-icon"><img src="${icon}" alt="${alt}" style="cursor: pointer;"></li>`;
@@ -82,8 +82,8 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   }
 
   async function disableProfileEditing({
-    profiles,
-    message
+    profiles = [],
+    message = "Редактирование данного профиля для вас запрещено."
   }: DisabledProfiles) {
     if (profiles.length > 0) {
       const profile = document.getElementById("profile");
@@ -97,7 +97,10 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     }
   }
 
-  async function createFastLoginLinks({ after, logins }: FastLogin) {
+  async function createFastLoginLinks({
+    after = "navlogin",
+    logins = []
+  }: FastLogin) {
     if (GroupID === 3) {
       function handleFastLoginClick({ target }: { target: EventTarget }) {
         const html = `<div id="additional_login" style="display: none">
@@ -161,35 +164,28 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     }
   }
 
-  const initial = {
-    fastLogin: { after: "navlogin", logins: [] },
-    disabledProfiles: {
-      profiles: [],
-      message: "Редактирование данного профиля для вас запрещено."
-    },
-    defaultIcon: { after: ".pa-title" }
-  };
-
   // calling functions w/ passed props
-  setDefaultIcon(defaultIcon || initial.defaultIcon);
-  createFastLoginLinks(fastLogin || initial.fastLogin);
-  disableProfileEditing(disabledProfiles || initial.disabledProfiles);
+  setDefaultIcon(defaultIcon);
+  createFastLoginLinks(fastLogin);
+  disableProfileEditing(disabledProfiles);
 }
 
 // possible config for reference:
-// basicScriptSet({
-//   disabledProfiles: [4], // айди профилей в квадратных скобках через запятую
-//   defaultIcon: {
-//     icon: "http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" // ссылка
-//   },
-//   fastLogin: {
-//     logins: [
-//       {
-//         login: "reader test",
-//         password: "12345",
-//         id: "navreader",
-//         link: "Peek Inside"
-//       }
-//     ]
-//   }
-// });
+basicScriptSet({
+  disabledProfiles: {
+    profiles: [4]
+  }, // айди профилей в квадратных скобках через запятую
+  defaultIcon: {
+    icon: "http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" // ссылка
+  },
+  fastLogin: {
+    logins: [
+      {
+        login: "reader test",
+        password: "12345",
+        id: "navreader",
+        link: "Peek Inside"
+      }
+    ]
+  }
+});
