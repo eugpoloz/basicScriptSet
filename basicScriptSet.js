@@ -27,7 +27,7 @@ type Options = {
 // basic function
 function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
   async function originalUploadedFirst() {
-    if (typeof FORUM.topic === "object") {
+    if (typeof FORUM.editor === "object") {
       const insertFormat = document.getElementById("image-insert-format");
 
       const html = `<strong>Вставить как:</strong>
