@@ -22,7 +22,7 @@
           "mangle": {
             "exclude": [
               "basicScriptSet",
-              "disabledProfiles",
+              "profilesToDisable",
               "defaultIcon",
               "fastLogin"
             ]

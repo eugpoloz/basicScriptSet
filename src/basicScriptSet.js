@@ -3,7 +3,6 @@
 
 /*
   basicScriptSet
-  v0.0.1
   author: eugpoloz (грандоченька смерти)
   license: MIT
 
@@ -32,10 +31,15 @@ type FastLogin = {
   }>
 };
 
+type DisabledProfiles = {
+  profiles: Array<number>,
+  message: string
+};
+
 type Options = {
-  disabledProfiles?: Array<number>,
-  defaultIcon?: DefaultIcon,
-  fastLogin?: FastLogin
+  disabledProfiles: DisabledProfiles,
+  defaultIcon: DefaultIcon,
+  fastLogin: FastLogin
 };
 
 // basic function
@@ -77,19 +81,19 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     }
   }
 
-  async function disableProfileEditing(profiles: Array<number>) {
+  async function disableProfileEditing({
+    profiles,
+    message
+  }: DisabledProfiles) {
     if (profiles.length > 0) {
-      for (let i = 0; i < profiles.length; i++) {
-        if (UserID === profiles[i] && document.URL.includes("profile.php")) {
-          const profile = document.getElementById("profile");
+      const profile = document.getElementById("profile");
+      const innerHTML = `<p style="margin: 1em 0; line-height: 2">${message}</p>`;
 
-          if (profile) {
-            profile.innerHTML = `<p style="margin: 1em 0; line-height: 2">
-          Редактирование данного профиля для вас запрещено.
-        </p>`;
-          }
+      profiles.forEach(disabled => {
+        if (UserID === disabled) {
+          return profile ? (profile.innerHTML = innerHTML) : null;
         }
-      }
+      });
     }
   }
 
@@ -159,14 +163,17 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
 
   const initial = {
     fastLogin: { after: "navlogin", logins: [] },
-    disabledProfiles: [],
+    disabledProfiles: {
+      profiles: [],
+      message: "Редактирование данного профиля для вас запрещено."
+    },
     defaultIcon: { after: ".pa-title" }
   };
 
   // calling functions w/ passed props
+  setDefaultIcon(defaultIcon || initial.defaultIcon);
   createFastLoginLinks(fastLogin || initial.fastLogin);
   disableProfileEditing(disabledProfiles || initial.disabledProfiles);
-  setDefaultIcon(defaultIcon || initial.defaultIcon);
 }
 
 // possible config for reference:
