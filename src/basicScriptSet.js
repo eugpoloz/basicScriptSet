@@ -88,7 +88,7 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   }: DisabledProfiles) {
     // form jQuery method that checks if main #pun is ready (I guess)
     // this is useful for us tho
-    $(document).pun_mainReady(() => {
+    $().pun_mainReady(function() {
       const profile = document.getElementById("profile");
       if (profile) {
         profile.style.display = "none";
