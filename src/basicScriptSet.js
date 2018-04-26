@@ -90,18 +90,16 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     // this is useful for us tho
     $().pun_mainReady(function() {
       const profile = document.getElementById("profile");
-      if (profile) {
+      if (profile && profiles.length > 0) {
         profile.style.display = "none";
 
-        if (profiles.length > 0) {
-          const innerHTML = `<p style="margin: 1em 0; line-height: 2">${message}</p>`;
+        const innerHTML = `<p style="margin: 1em 0; line-height: 2">${message}</p>`;
 
-          profiles.forEach(disabled => {
-            if (UserID === disabled) {
-              return (profile.innerHTML = innerHTML);
-            }
-          });
-        }
+        profiles.forEach(disabled => {
+          if (UserID === disabled) {
+            return (profile.innerHTML = innerHTML);
+          }
+        });
 
         profile.style.display = "";
       }
