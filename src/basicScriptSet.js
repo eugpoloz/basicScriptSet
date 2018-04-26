@@ -12,6 +12,7 @@
 */
 
 // type definitions and global variables
+declare var bbcode: Function;
 declare var FORUM: any;
 declare var UserID: any;
 declare var GroupID: any;
@@ -63,6 +64,59 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
       }
     }
   })();
+
+  (async function addCtrlClicks() {
+    type BBClickEvent = {
+      target: EventTarget,
+      ctrlKey: boolean,
+      altKey: boolean
+    };
+
+    function handleClick(e: BBClickEvent) {
+      if (e.target instanceof HTMLElement) {
+        const { parentNode } = e.target;
+        if (parentNode instanceof HTMLElement) {
+          const { id } = parentNode;
+          const nodeID = id
+            .toString()
+            .toLowerCase()
+            .split("-")[1];
+
+          if (e.ctrlKey || e.altKey) {
+            switch (nodeID) {
+              case "image":
+                bbcode("[img]", "[/img]");
+                break;
+              case "url":
+                bbcode('[url=""]', "[/url]");
+                break;
+              default:
+                bbcode(`[${nodeID}]`, `[/${nodeID}]`);
+                break;
+            }
+          } else {
+            FORUM.get("editor." + nodeID + ".onclick()");
+          }
+        }
+      }
+    }
+
+    if (typeof FORUM.editor === "object") {
+      const nodeList = document.querySelectorAll(
+        "#button-link, #button-hide, #button-image, #button-spoiler, #button-video"
+      );
+
+      if (nodeList) {
+        nodeList.forEach(node => {
+          const img = node.querySelector("img");
+          if (img) {
+            img.removeAttribute("onclick");
+            img.addEventListener("click", handleClick);
+          }
+        });
+      }
+    }
+  });
 
   // various helper functions
   async function setDefaultIcon({ icon, after = ".pa-title" }: DefaultIcon) {
