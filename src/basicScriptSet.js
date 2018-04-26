@@ -15,6 +15,7 @@
 declare var FORUM: any;
 declare var UserID: any;
 declare var GroupID: any;
+declare var $: any;
 
 type DefaultIcon = {
   icon?: string,
@@ -89,9 +90,19 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
       const profile = document.getElementById("profile");
       const innerHTML = `<p style="margin: 1em 0; line-height: 2">${message}</p>`;
 
-      profiles.forEach(disabled => {
-        if (UserID === disabled) {
-          return profile ? (profile.innerHTML = innerHTML) : null;
+      // form jQuery method that checks if main #pun is ready (I guess)
+      // this is useful for us tho
+      $(document).pun_mainReady(() => {
+        if (profile) {
+          profile.style.display = "none";
+
+          profiles.forEach(disabled => {
+            if (UserID === disabled) {
+              return (profile.innerHTML = innerHTML);
+            }
+          });
+
+          profile.style.display = "block";
         }
       });
     }
