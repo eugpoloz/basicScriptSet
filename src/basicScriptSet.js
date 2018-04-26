@@ -117,7 +117,7 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
         });
       }
     }
-  });
+  })();
 
   // various helper functions
   async function setDefaultIcon({ icon, after = ".pa-title" }: DefaultIcon) {
