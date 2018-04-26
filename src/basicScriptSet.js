@@ -171,21 +171,21 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
 }
 
 // possible config for reference:
-basicScriptSet({
-  disabledProfiles: {
-    profiles: [4]
-  }, // айди профилей в квадратных скобках через запятую
-  defaultIcon: {
-    icon: "http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" // ссылка
-  },
-  fastLogin: {
-    logins: [
-      {
-        login: "reader test",
-        password: "12345",
-        id: "navreader",
-        link: "Peek Inside"
-      }
-    ]
-  }
-});
+// basicScriptSet({
+//   disabledProfiles: {
+//     profiles: [4]
+//   }, // айди профилей в квадратных скобках через запятую
+//   defaultIcon: {
+//     icon: "http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" // ссылка
+//   },
+//   fastLogin: {
+//     logins: [
+//       {
+//         login: "reader test",
+//         password: "12345",
+//         id: "navreader",
+//         link: "Peek Inside"
+//       }
+//     ]
+//   }
+// });
