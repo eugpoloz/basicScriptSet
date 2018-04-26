@@ -18,8 +18,6 @@ type DefaultIcon = {
   after?: string
 };
 
-type ForbidEditingProfiles = Array<number>;
-
 type FastLogin = {
   after?: string,
   logins: Array<{
@@ -31,13 +29,17 @@ type FastLogin = {
 };
 
 type Options = {
-  forbidEditingProfiles?: ForbidEditingProfiles,
+  forbidEditingProfiles?: Array<number>,
   defaultIcon?: DefaultIcon,
   fastLogin?: FastLogin
 };
 
 // basic function
-function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
+function basicScriptSet({
+  forbidEditingProfiles,
+  defaultIcon,
+  fastLogin
+}: Options) {
   async function originalUploadedFirst() {
     if (typeof FORUM.editor === "object") {
       const insertFormat = document.getElementById("image-insert-format");
@@ -54,7 +56,7 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
   }
 
   // our helper functions
-  async function setDefaultIcon({ icon, after = ".pa-title" }) {
+  async function setDefaultIcon({ icon, after = ".pa-title" }: FastLogin) {
     if (typeof icon === "string" && typeof FORUM.topic === "object") {
       document.querySelectorAll(".post-author ul").forEach(author => {
         if (author.querySelector(".pa-avatar")) return;
@@ -68,7 +70,7 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
     }
   }
 
-  async function disableProfileEditing(profileArray = []) {
+  async function disableProfileEditing(profileArray: Array<number> = []) {
     if (profileArray.length > 0) {
       for (let i = 0; i < profileArray.length; i++) {
         if (
@@ -85,7 +87,10 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
     }
   }
 
-  async function createFastLoginLinks({ after = "navlogin", logins = [] }) {
+  async function createFastLoginLinks({
+    after = "navlogin",
+    logins = []
+  }: FastLogin) {
     if (GroupID === 3) {
       function handleFastLoginClick({ target }) {
         const html = `<div id="additional_login" style="display: none">
@@ -143,19 +148,19 @@ function basicScriptSet({ forbidEditingProfiles, defaultIcon, fastLogin }) {
   setDefaultIcon(defaultIcon);
 }
 
-basicScriptSet({
-  forbidEditingProfiles: [4], // айди профилей в квадратных скобках через запятую
-  defaultIcon: {
-    icon: "http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" // ссылка
-  },
-  fastLogin: {
-    logins: [
-      {
-        login: "reader test",
-        password: "12345",
-        id: "navreader",
-        link: "Peek Inside"
-      }
-    ]
-  }
-});
+// basicScriptSet({
+//   forbidEditingProfiles: [4], // айди профилей в квадратных скобках через запятую
+//   defaultIcon: {
+//     icon: "http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" // ссылка
+//   },
+//   fastLogin: {
+//     logins: [
+//       {
+//         login: "reader test",
+//         password: "12345",
+//         id: "navreader",
+//         link: "Peek Inside"
+//       }
+//     ]
+//   }
+// });
