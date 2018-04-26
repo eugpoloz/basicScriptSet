@@ -69,7 +69,8 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     type BBClickEvent = {
       target: EventTarget,
       ctrlKey: boolean,
-      altKey: boolean
+      altKey: boolean,
+      metaKey: boolean
     };
 
     function handleClick(e: BBClickEvent) {
@@ -82,7 +83,7 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
             .toLowerCase()
             .split("-")[1];
 
-          if (e.ctrlKey || e.altKey) {
+          if (e.ctrlKey || e.altKey || e.metaKey) {
             switch (nodeID) {
               case "image":
                 bbcode("[img]", "[/img]");
