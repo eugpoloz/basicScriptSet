@@ -46,6 +46,7 @@ type Options = {
 
 // basic function
 function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
+  console.log(document.location.origin);
   // сначала оригинал загруженного изображения
   // loaded img original first
   (async function originalUploadedFirst() {
