@@ -46,7 +46,6 @@ type Options = {
 
 // basic function
 function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
-  console.log(document.location.origin);
   // сначала оригинал загруженного изображения
   // loaded img original first
   (async function originalUploadedFirst() {
@@ -208,6 +207,37 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
           }
         }
       }
+
+      // async function handleFastLoginClick({ target }: { target: EventTarget }) {
+      //   if (target instanceof HTMLElement) {
+      //     const { login, password } = target.dataset;
+      //
+      //     const formData = new FormData();
+      //     formData.append("form_sent", "1");
+      //     formData.append("req_username", login);
+      //     formData.append("req_password", password);
+      //     formData.append("login", "Submit");
+      //
+      //     const fetchObject = {
+      //       body: formData,
+      //       credentials: "include",
+      //       headers: {
+      //         Accept:
+      //           "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+      //         "Cache-Control": "max-age=0",
+      //         "Upgrade-Insecure-Requests": "1"
+      //       },
+      //       method: "POST"
+      //     };
+      //
+      //     const data = await fetch(
+      //       `${window.location.origin}/login.php?action=in`,
+      //       fetchObject
+      //     );
+      //
+      //     window.location.replace(data.redirect);
+      //   }
+      // }
 
       if (logins.length > 0) {
         const loginMap = logins.map(({ id, link, login, password }, i) => {
