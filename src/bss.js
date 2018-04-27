@@ -168,7 +168,7 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     if (GroupID === 3) {
       function handleFastLoginClick({ target }: { target: EventTarget }) {
         const html = `<div id="additional_login" style="display: none">
-          <form id="form_login" name="login" method="post" action="/login.php?action=in" onsubmit="return process_form(this)">
+          <form id="form_login" name="login" method="post" action="/login.php?action=in">
             <fieldset>
               <input type="hidden" name="form_sent" value="1" />
               <input type="text" id="fld1" name="req_username" size="21" maxlength="25" />
