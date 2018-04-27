@@ -166,78 +166,81 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     logins = []
   }: FastLogin) {
     if (GroupID === 3) {
-      function handleFastLoginClick({ target }: { target: EventTarget }) {
-        const html = `<div id="additional_login" style="display: none">
-          <form id="form_login" name="login" method="post" action="/login.php?action=in">
-            <fieldset>
-              <input type="hidden" name="form_sent" value="1" />
-              <input type="text" id="fld1" name="req_username" size="21" maxlength="25" />
-              <input type="text" id="fld2" name="req_password" size="7" maxlength="16"/>
-              <input type="submit" class="button" name="login"/>
-            </fieldset>
-          </form>
-        </div>`;
-
-        const navlinks = document.getElementById("pun-navlinks");
-
-        if (navlinks) {
-          navlinks.insertAdjacentHTML("afterend", html);
-        }
-
-        if (target instanceof HTMLElement) {
-          const { login, password } = target.dataset;
-
-          const form = document.querySelector("#additional_login #form_login");
-          if (form) {
-            const loginInput = form.querySelector("#fld1");
-            const passwordInput = form.querySelector("#fld2");
-            const submit = form.querySelector("input[type='submit']");
-
-            if (loginInput instanceof HTMLInputElement) {
-              loginInput.value = login;
-            }
-            if (passwordInput instanceof HTMLInputElement) {
-              passwordInput.value = password;
-            }
-
-            if (submit) {
-              // TODO: refactor from jQuery plz
-              return submit.click();
-            }
-          }
-        }
-      }
-
-      // async function handleFastLoginClick({ target }: { target: EventTarget }) {
+      // function handleFastLoginClick({ target }: { target: EventTarget }) {
+      //   const html = `<div id="additional_login" style="display: none">
+      //     <form id="form_login" name="login" method="post" action="/login.php?action=in">
+      //       <fieldset>
+      //         <input type="hidden" name="form_sent" value="1" />
+      //         <input type="text" id="fld1" name="req_username" size="21" maxlength="25" />
+      //         <input type="text" id="fld2" name="req_password" size="7" maxlength="16"/>
+      //         <input type="submit" class="button" name="login"/>
+      //       </fieldset>
+      //     </form>
+      //   </div>`;
+      //
+      //   const navlinks = document.getElementById("pun-navlinks");
+      //
+      //   if (navlinks) {
+      //     navlinks.insertAdjacentHTML("afterend", html);
+      //   }
+      //
       //   if (target instanceof HTMLElement) {
       //     const { login, password } = target.dataset;
       //
-      //     const formData = new FormData();
-      //     formData.append("form_sent", "1");
-      //     formData.append("req_username", login);
-      //     formData.append("req_password", password);
-      //     formData.append("login", "Submit");
+      //     const form = document.querySelector("#additional_login #form_login");
+      //     if (form) {
+      //       const loginInput = form.querySelector("#fld1");
+      //       const passwordInput = form.querySelector("#fld2");
+      //       const submit = form.querySelector("input[type='submit']");
       //
-      //     const fetchObject = {
-      //       body: formData,
-      //       credentials: "include",
-      //       headers: {
-      //         Accept:
-      //           "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-      //         "Cache-Control": "max-age=0",
-      //         "Upgrade-Insecure-Requests": "1"
-      //       },
-      //       method: "POST"
-      //     };
+      //       if (loginInput instanceof HTMLInputElement) {
+      //         loginInput.value = login;
+      //       }
+      //       if (passwordInput instanceof HTMLInputElement) {
+      //         passwordInput.value = password;
+      //       }
       //
-      //     const data = await fetch(
-      //       `${window.location.origin}/login.php?action=in`,
-      //       fetchObject
-      //     );
-      //
-      //     window.location.replace(data.redirect);
+      //       if (submit) {
+      //         // TODO: refactor from jQuery plz
+      //         return submit.click();
+      //       }
+      //     }
       //   }
       // }
+
+      async function handleFastLoginClick({ target }: { target: EventTarget }) {
+        if (target instanceof HTMLElement) {
+          const { login, password } = target.dataset;
+
+          const formData = new FormData();
+          formData.append("form_sent", "1");
+          formData.append("req_username", login);
+          formData.append("req_password", password);
+          formData.append("login", "Submit");
+
+          const fetchObject = {
+            body: formData,
+            credentials: "include",
+            headers: {
+              Accept:
+                "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+              "Cache-Control": "max-age=0",
+              "Content-Type": "application/x-www-form-urlencoded",
+              "Upgrade-Insecure-Requests": "1"
+            },
+            method: "POST"
+          };
+
+          const data = await fetch(
+            `${window.location.origin}/login.php?action=in`,
+            fetchObject
+          );
+
+          if (data.status === 200) {
+            window.location.reload();
+          }
+        }
+      }
 
       if (logins.length > 0) {
         const loginMap = logins.map(({ id, link, login, password }, i) => {
