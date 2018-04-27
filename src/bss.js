@@ -222,10 +222,7 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
             body: formData,
             credentials: "include",
             headers: {
-              Accept:
-                "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
               "Cache-Control": "max-age=0",
-              "Content-Type": "application/x-www-form-urlencoded",
               "Upgrade-Insecure-Requests": "1"
             },
             method: "POST"
