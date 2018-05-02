@@ -26,7 +26,7 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
     }
   }
 
-  function handleButtonClick(e: MouseEvent, smiliesMap: Array<string>) {
+  function handleButtonClick(e: MouseEvent, smiliesHTML: string) {
     e.preventDefault();
     const { currentTarget } = e;
     if (currentTarget instanceof HTMLAnchorElement) {
@@ -34,7 +34,7 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
       currentTarget.classList.add(activeClass);
 
       if (buttonsContainer instanceof HTMLElement) {
-        buttonsContainer.innerHTML = smiliesMap.join(" ");
+        buttonsContainer.innerHTML = smiliesHTML;
 
         if (packsContainer instanceof HTMLElement) {
           packsContainer.style.display = "block";
@@ -57,18 +57,20 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
     buttonEl.className = "smile_custom_btn";
     buttonEl.innerText = button_text;
 
-    const smiliesMap = smilies.map(
-      (smile: string, idx: number) =>
-        `<a onclick="insert('[img]' + ${smile} +'[/img]')">
-          <img src="${smile}" alt="${button_text}${idx.toString(10)}"/>
-        </a>`
-    );
+    const smiliesHTML = smilies
+      .map(
+        (smile: string, idx: number) =>
+          `<a onclick="insert('[img]' + ${smile} +'[/img]')"><img src="${smile}" alt="${button_text}${idx.toString(
+            10
+          )}"/></a>`
+      )
+      .join(" ");
 
-    console.log(smiliesMap);
+    console.log(smiliesHTML);
 
     // bind event listener
     buttonEl.addEventListener("click", (e: MouseEvent) =>
-      handleButtonClick(e, smiliesMap)
+      handleButtonClick(e, smiliesHTML)
     );
 
     // add it if we have a container for it, add it
@@ -119,12 +121,12 @@ appendSmilies([
       "http://s5.uploads.ru/JgPrK.gif",
       "http://s4.uploads.ru/BslHI.gif",
       "http://funkyimg.com/i/21Qfa.gif",
-      " http://funkyimg.com/i/21Qfe.gif",
-      " http://funkyimg.com/i/22FZd.gif",
-      " http://funkyimg.com/i/22FZc.gif",
-      " http://s2.uploads.ru/zA2Ps.gif",
+      "http://funkyimg.com/i/21Qfe.gif",
+      "http://funkyimg.com/i/22FZd.gif",
+      "http://funkyimg.com/i/22FZc.gif",
+      "http://s2.uploads.ru/zA2Ps.gif",
       "http://funkyimg.com/i/22FZT.gif",
-      " http://funkyimg.com/i/21Qfm.gif",
+      "http://funkyimg.com/i/21Qfm.gif",
       "http://funkyimg.com/i/21Qfk.gif",
       "http://sh.uploads.ru/ozYQG.gif",
       "http://sg.uploads.ru/tpnPL.gif",
