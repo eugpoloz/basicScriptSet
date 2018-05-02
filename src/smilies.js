@@ -20,7 +20,7 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
     const smiliesContainer = document.getElementById("smile-container");
     const closeContainerBtn = document.getElementById("smile-container-close");
 
-    const activeClass = "smilies-button--active";
+    const activeClass = "smile-custom-btn--active";
 
     function resetActiveClass() {
       if (buttonsContainer instanceof HTMLElement) {
@@ -50,7 +50,7 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
     smiliesPacks.forEach(({ smilies, button_text }: Pack) => {
       // construct our button
       const buttonEl = document.createElement("a");
-      buttonEl.className = "smile_custom_btn";
+      buttonEl.className = "smile-custom-btn";
       buttonEl.innerText = button_text;
 
       const smiliesHTML = smilies
