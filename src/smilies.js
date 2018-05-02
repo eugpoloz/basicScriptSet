@@ -42,7 +42,7 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
           packsContainer instanceof HTMLElement
         ) {
           smiliesContainer.innerHTML = smiliesHTML;
-          packsContainer.style.display = "block";
+          packsContainer.style.display = "";
         }
       }
     }
