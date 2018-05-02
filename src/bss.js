@@ -21,7 +21,7 @@ declare var $: any;
 type DefaultIcon = {
   icon?: string,
   after?: string
-};
+} | null;
 
 type FastLogin = {
   after?: string,
@@ -119,17 +119,20 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     }
   })();
 
-  (async function countMainTextareaSymbols() {
-    const charCounterHTML = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
-    if (typeof FORUM.editor === "object") {
-    }
-  })();
+  // (async function countMainTextareaSymbols() {
+  //   const charCounterHTML = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
+  //   if (typeof FORUM.editor === "object") {
+  //   }
+  // })();
 
   // various helper functions
-  async function setDefaultIcon({
-    icon = "",
-    after = ".pa-title"
-  }: DefaultIcon) {
+  async function setDefaultIcon(defaultIcon: DefaultIcon = null) {
+    if (defaultIcon === null) {
+      return;
+    }
+
+    const { icon = "", after = ".pa-title" } = defaultIcon;
+
     if (icon === "") {
       return;
     }
