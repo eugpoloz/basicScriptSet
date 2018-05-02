@@ -1,6 +1,9 @@
 // @flow
 "use strict";
 
+// type definitions and global variables
+declare var GroupID: any;
+
 // type defs
 type Pack = {
   smilies: Array<string>,
@@ -11,76 +14,78 @@ type AppendSmilies = Array<Pack>;
 
 // our func
 async function appendSmilies(smiliesPacks: AppendSmilies) {
-  const buttonsContainer = document.getElementById("smile-btns");
-  const packsContainer = document.getElementById("smile-packs");
-  const smiliesContainer = document.getElementById("smile-container");
-  const closeContainerBtn = document.getElementById("smile-container-close");
+  if (GroupID !== 3) {
+    const buttonsContainer = document.getElementById("smile-btns");
+    const packsContainer = document.getElementById("smile-packs");
+    const smiliesContainer = document.getElementById("smile-container");
+    const closeContainerBtn = document.getElementById("smile-container-close");
 
-  const activeClass = "smilies-button--active";
+    const activeClass = "smilies-button--active";
 
-  function resetActiveClass() {
-    if (buttonsContainer instanceof HTMLElement) {
-      buttonsContainer
-        .querySelectorAll("a")
-        .forEach(btn => btn.classList.remove(activeClass));
-    }
-  }
-
-  function handleButtonClick(e: MouseEvent, smiliesHTML: string) {
-    e.preventDefault();
-    const { currentTarget } = e;
-    if (currentTarget instanceof HTMLAnchorElement) {
-      resetActiveClass();
-      currentTarget.classList.add(activeClass);
-
-      if (
-        smiliesContainer instanceof HTMLElement &&
-        packsContainer instanceof HTMLElement
-      ) {
-        smiliesContainer.innerHTML = smiliesHTML;
-        packsContainer.style.display = "block";
+    function resetActiveClass() {
+      if (buttonsContainer instanceof HTMLElement) {
+        buttonsContainer
+          .querySelectorAll("a")
+          .forEach(btn => btn.classList.remove(activeClass));
       }
     }
-  }
 
-  smiliesPacks.forEach(({ smilies, button_text }: Pack) => {
-    // construct our button
-    const buttonEl = document.createElement("a");
-    buttonEl.className = "smile_custom_btn";
-    buttonEl.innerText = button_text;
-
-    const smiliesHTML = smilies
-      .map(
-        (smile: string, idx: number) =>
-          `<a onclick="insert('[img]${smile}[/img]')"><img src="${smile}" alt="${button_text}${idx.toString(
-            10
-          )}"/></a>`
-      )
-      .join(" ");
-
-    // bind event listener
-    buttonEl.addEventListener("click", (e: MouseEvent) =>
-      handleButtonClick(e, smiliesHTML)
-    );
-
-    // add it if we have a container for it, add it
-    if (buttonsContainer instanceof HTMLElement) {
-      buttonsContainer.appendChild(buttonEl);
-    }
-  });
-
-  if (closeContainerBtn instanceof HTMLAnchorElement) {
-    closeContainerBtn.addEventListener("click", (e: MouseEvent) => {
+    function handleButtonClick(e: MouseEvent, smiliesHTML: string) {
       e.preventDefault();
-      resetActiveClass();
-      if (
-        smiliesContainer instanceof HTMLElement &&
-        packsContainer instanceof HTMLElement
-      ) {
-        smiliesContainer.innerHTML = "";
-        packsContainer.style.display = "none";
+      const { currentTarget } = e;
+      if (currentTarget instanceof HTMLAnchorElement) {
+        resetActiveClass();
+        currentTarget.classList.add(activeClass);
+
+        if (
+          smiliesContainer instanceof HTMLElement &&
+          packsContainer instanceof HTMLElement
+        ) {
+          smiliesContainer.innerHTML = smiliesHTML;
+          packsContainer.style.display = "block";
+        }
+      }
+    }
+
+    smiliesPacks.forEach(({ smilies, button_text }: Pack) => {
+      // construct our button
+      const buttonEl = document.createElement("a");
+      buttonEl.className = "smile_custom_btn";
+      buttonEl.innerText = button_text;
+
+      const smiliesHTML = smilies
+        .map(
+          (smile: string, idx: number) =>
+            `<a onclick="insert('[img]${smile}[/img]')"><img src="${smile}" alt="${button_text}${idx.toString(
+              10
+            )}"/></a>`
+        )
+        .join(" ");
+
+      // bind event listener
+      buttonEl.addEventListener("click", (e: MouseEvent) =>
+        handleButtonClick(e, smiliesHTML)
+      );
+
+      // add it if we have a container for it, add it
+      if (buttonsContainer instanceof HTMLElement) {
+        buttonsContainer.appendChild(buttonEl);
       }
     });
+
+    if (closeContainerBtn instanceof HTMLAnchorElement) {
+      closeContainerBtn.addEventListener("click", (e: MouseEvent) => {
+        e.preventDefault();
+        resetActiveClass();
+        if (
+          smiliesContainer instanceof HTMLElement &&
+          packsContainer instanceof HTMLElement
+        ) {
+          smiliesContainer.innerHTML = "";
+          packsContainer.style.display = "none";
+        }
+      });
+    }
   }
 }
 
