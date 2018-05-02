@@ -119,9 +119,22 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     }
   })();
 
+  (async function countMainTextareaSymbols() {
+    const charCounterHTML = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
+    if (typeof FORUM.editor === "object") {
+    }
+  })();
+
   // various helper functions
-  async function setDefaultIcon({ icon, after = ".pa-title" }: DefaultIcon) {
-    if (icon !== undefined && typeof FORUM.topic === "object") {
+  async function setDefaultIcon({
+    icon = "",
+    after = ".pa-title"
+  }: DefaultIcon) {
+    if (icon === "") {
+      return;
+    }
+
+    if (typeof FORUM.topic === "object") {
       document.querySelectorAll(".post-author ul").forEach(author => {
         if (author.querySelector(".pa-avatar")) return;
 
@@ -166,48 +179,6 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     logins = []
   }: FastLogin) {
     if (GroupID === 3) {
-      // function handleFastLoginClick({ target }: { target: EventTarget }) {
-      //   const html = `<div id="additional_login" style="display: none">
-      //     <form id="form_login" name="login" method="post" action="/login.php?action=in">
-      //       <fieldset>
-      //         <input type="hidden" name="form_sent" value="1" />
-      //         <input type="text" id="fld1" name="req_username" size="21" maxlength="25" />
-      //         <input type="text" id="fld2" name="req_password" size="7" maxlength="16"/>
-      //         <input type="submit" class="button" name="login"/>
-      //       </fieldset>
-      //     </form>
-      //   </div>`;
-      //
-      //   const navlinks = document.getElementById("pun-navlinks");
-      //
-      //   if (navlinks) {
-      //     navlinks.insertAdjacentHTML("afterend", html);
-      //   }
-      //
-      //   if (target instanceof HTMLElement) {
-      //     const { login, password } = target.dataset;
-      //
-      //     const form = document.querySelector("#additional_login #form_login");
-      //     if (form) {
-      //       const loginInput = form.querySelector("#fld1");
-      //       const passwordInput = form.querySelector("#fld2");
-      //       const submit = form.querySelector("input[type='submit']");
-      //
-      //       if (loginInput instanceof HTMLInputElement) {
-      //         loginInput.value = login;
-      //       }
-      //       if (passwordInput instanceof HTMLInputElement) {
-      //         passwordInput.value = password;
-      //       }
-      //
-      //       if (submit) {
-      //         // TODO: refactor from jQuery plz
-      //         return submit.click();
-      //       }
-      //     }
-      //   }
-      // }
-
       async function handleFastLoginClick({ target }: { target: EventTarget }) {
         if (target instanceof HTMLElement) {
           const { login, password } = target.dataset;
