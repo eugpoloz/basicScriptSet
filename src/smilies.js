@@ -33,12 +33,12 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
       resetActiveClass();
       currentTarget.classList.add(activeClass);
 
-      if (buttonsContainer instanceof HTMLElement) {
-        buttonsContainer.innerHTML = smiliesHTML;
-
-        if (packsContainer instanceof HTMLElement) {
-          packsContainer.style.display = "block";
-        }
+      if (
+        smiliesContainer instanceof HTMLElement &&
+        packsContainer instanceof HTMLElement
+      ) {
+        smiliesContainer.innerHTML = smiliesHTML;
+        packsContainer.style.display = "block";
       }
     }
   }
@@ -47,10 +47,10 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
     e.preventDefault();
     resetActiveClass();
     if (
-      buttonsContainer instanceof HTMLElement &&
+      smiliesContainer instanceof HTMLElement &&
       packsContainer instanceof HTMLElement
     ) {
-      buttonsContainer.innerHTML = "";
+      smiliesContainer.innerHTML = "";
       packsContainer.style.display = "none";
     }
   }
