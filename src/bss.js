@@ -155,7 +155,7 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     message = "Редактирование данного профиля для вас запрещено."
   }: DisabledProfiles) {
     // form jQuery method that checks if main #pun is ready (I guess)
-    // this is useful for us tho
+    // this is useful for us (I guess?)
     $().pun_mainReady(function() {
       const profile = document.getElementById("profile");
       if (profile && profiles.length > 0) {
@@ -178,7 +178,9 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     after = "navlogin",
     logins = []
   }: FastLogin) {
+    // if the current user group is a guest one
     if (GroupID === 3) {
+      // helper async function
       async function handleFastLoginClick({ target }: { target: EventTarget }) {
         if (target instanceof HTMLElement) {
           const { login, password } = target.dataset;
@@ -204,6 +206,7 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
             fetchObject
           );
 
+          // because the answer itself is not perfect, we can't do much good here
           if (data.status === 200) {
             window.location.reload();
           }
