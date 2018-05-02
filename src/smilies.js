@@ -46,7 +46,11 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
   function handleCloseClick(e: MouseEvent) {
     e.preventDefault();
     resetActiveClass();
-    if (packsContainer instanceof HTMLElement) {
+    if (
+      buttonsContainer instanceof HTMLElement &&
+      packsContainer instanceof HTMLElement
+    ) {
+      buttonsContainer.innerHTML = "";
       packsContainer.style.display = "none";
     }
   }
@@ -66,8 +70,6 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
       )
       .join(" ");
 
-    console.log(smiliesHTML);
-
     // bind event listener
     buttonEl.addEventListener("click", (e: MouseEvent) =>
       handleButtonClick(e, smiliesHTML)
@@ -75,7 +77,7 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
 
     // add it if we have a container for it, add it
     if (buttonsContainer instanceof HTMLElement) {
-      buttonsContainer.insertBefore(buttonEl, null);
+      buttonsContainer.appendChild(buttonEl);
     }
   });
 
