@@ -1,5 +1,6 @@
 // @flow
 "use strict";
+import throttle from "lodash/throttle";
 
 /*
   basicScriptSet
@@ -119,9 +120,50 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     }
   })();
 
-  (async function countMainTextareaSymbols() {
-    const charCounterHTML = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
+  (async function countMainTextareaCharacters() {
     if (typeof FORUM.editor === "object") {
+      // helper counter function
+      function characterCounter({ currentTarget }: Event) {
+        if (currentTarget instanceof HTMLTextAreaElement) {
+          const { length } = currentTarget.value;
+          const counter = document.querySelector("#charcounter .charcount");
+
+          if (counter instanceof HTMLElement) {
+            const counterState = parseInt(counter.innerText, 10);
+
+            if (counterState !== length) {
+              counter.innerText = length.toString();
+            }
+          }
+        }
+      }
+
+      const mainReply = document.getElementById("main-reply");
+
+      // if we have our main textarea
+      if (mainReply instanceof HTMLTextAreaElement) {
+        // and it has a field where we can put stuff
+        const counterHTML = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
+        const counterSibling = document.querySelector("p.areafield.required");
+
+        // let's put stuff
+        if (counterSibling instanceof HTMLElement) {
+          counterSibling.insertAdjacentHTML("afterend", counterHTML);
+
+          [
+            "change",
+            "blur",
+            "paste",
+            "keypress",
+            "keyup",
+            "keydown"
+          ].forEach(type =>
+            mainReply.addEventListener(type, (e: Event) =>
+              throttle(() => characterCounter(e), 100)
+            )
+          );
+        }
+      }
     }
   })();
 
