@@ -43,18 +43,6 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
     }
   }
 
-  function handleCloseClick(e: MouseEvent) {
-    e.preventDefault();
-    resetActiveClass();
-    if (
-      smiliesContainer instanceof HTMLElement &&
-      packsContainer instanceof HTMLElement
-    ) {
-      smiliesContainer.innerHTML = "";
-      packsContainer.style.display = "none";
-    }
-  }
-
   smiliesPacks.forEach(({ smilies, button_text }: Pack) => {
     // construct our button
     const buttonEl = document.createElement("a");
@@ -82,7 +70,17 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
   });
 
   if (closeContainerBtn instanceof HTMLAnchorElement) {
-    closeContainerBtn.addEventListener("click", handleCloseClick);
+    closeContainerBtn.addEventListener("click", (e: MouseEvent) => {
+      e.preventDefault();
+      resetActiveClass();
+      if (
+        smiliesContainer instanceof HTMLElement &&
+        packsContainer instanceof HTMLElement
+      ) {
+        smiliesContainer.innerHTML = "";
+        packsContainer.style.display = "none";
+      }
+    });
   }
 }
 
