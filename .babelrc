@@ -11,7 +11,9 @@
             "basicScriptSet",
             "profilesToDisable",
             "defaultIcon",
-            "fastLogin"
+            "fastLogin",
+            "appendSmilies",
+            "smiliesPacks"
           ]
         }
       }
