@@ -13,36 +13,6 @@
     "flow-bin": "^0.70.0",
     "lodash": "^4.17.10"
   },
-  "babel": {
-    "comments": false,
-    "plugins": ["lodash"],
-    "presets": [
-      ["flow"],
-      ["es2015"],
-      [
-        "minify",
-        {
-          "mangle": {
-            "exclude": [
-              "basicScriptSet",
-              "profilesToDisable",
-              "defaultIcon",
-              "fastLogin"
-            ]
-          }
-        }
-      ],
-      [
-        "env",
-        {
-          "targets": {
-            "browsers": ["last 2 Chrome versions"]
-          },
-          "useBuiltIns": true
-        }
-      ]
-    ]
-  },
   "scripts": {
     "build": "babel src -d docs"
   }
