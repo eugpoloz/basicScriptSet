@@ -56,7 +56,7 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
       const smiliesHTML = smilies
         .map(
           (smile: string, idx: number) =>
-            `<a onclick="insert('[img]${smile}[/img]')"><img src="${smile}" alt="${button_text}${idx.toString(
+            `<a onclick="insert(' [img]${smile}[/img] ')"><img src="${smile}" alt="${button_text}${idx.toString(
               10
             )}"/></a>`
         )
