@@ -7,16 +7,20 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
+        use: [
+          {
+            loader: "babel-loader"
+          },
+          { loader: "exports-loader" }
+        ]
       }
     ]
   },
   output: {
     path: path.resolve(__dirname, "docs"),
     filename: "bundle.js",
-    library: "basicScriptSet"
+    library: "basicScriptSet",
+    libraryTarget: "var"
   },
   externals: {
     $: "jQuery",
