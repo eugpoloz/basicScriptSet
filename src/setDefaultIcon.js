@@ -1,10 +1,7 @@
 // @flow
 declare var FORUM: any;
 
-type DefaultIcon = {
-  icon?: string,
-  [position: "after" | "before"]: string | null
-} | null;
+import type { DefaultIcon } from "./bss";
 
 // various helper functions
 export function setDefaultIcon(defaultIcon: DefaultIcon = null) {

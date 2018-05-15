@@ -1,5 +1,5 @@
 // @flow
-"use strict;";
+"use strict";
 
-import setDefaultIcon from "./setDefaultIcon";
-export { setDefaultIcon };
+import basicScriptSet from "./bss";
+export { basicScriptSet as bss };

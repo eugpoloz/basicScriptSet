@@ -11,19 +11,20 @@
   — http://urchoice.rolka.su/profile.php?id=4789
 */
 
+import setDefaultIcon from "./setDefaultIcon";
+import createFastLoginLinks from "./createFastLoginLinks";
+import disableProfileEditing from "./disableProfileEditing";
+
 // type definitions and global variables
 declare var bbcode: Function;
 declare var FORUM: any;
-declare var UserID: any;
-declare var GroupID: any;
-declare var $: any;
 
-type DefaultIcon = {
+export type DefaultIcon = {
   icon?: string,
   [position: "after" | "before"]: string | null
 } | null;
 
-type FastLogin = {
+export type FastLogin = {
   after?: string,
   logins: Array<{
     login: string,
@@ -33,7 +34,7 @@ type FastLogin = {
   }>
 };
 
-type DisabledProfiles = {
+export type DisabledProfiles = {
   profiles: Array<number>,
   message?: string
 };
@@ -129,90 +130,9 @@ export default function basicScriptSet({
   //   }
   // })();
 
-  function disableProfileEditing({
-    profiles = [],
-    message = "Редактирование данного профиля для вас запрещено."
-  }: DisabledProfiles) {
-    // form jQuery method that checks if main #pun is ready (I guess)
-    // this is useful for us (I guess?)
-    $().pun_mainReady(function() {
-      const profile = document.getElementById("profile");
-      if (profile && profiles.length > 0) {
-        profile.style.display = "none";
-
-        const innerHTML = `<p style="margin: 1em 0; line-height: 2">${message}</p>`;
-
-        profiles.forEach(disabled => {
-          if (UserID === disabled) {
-            return (profile.innerHTML = innerHTML);
-          }
-        });
-
-        profile.style.display = "";
-      }
-    });
-  }
-
-  function createFastLoginLinks({
-    after = "navlogin",
-    logins = []
-  }: FastLogin) {
-    // if the current user group is a guest one
-    if (GroupID === 3) {
-      // helper function
-      function handleFastLoginClick({ target }: { target: EventTarget }) {
-        if (target instanceof HTMLElement) {
-          const { login, password } = target.dataset;
-
-          const formData = new FormData();
-          formData.append("form_sent", "1");
-          formData.append("req_username", login);
-          formData.append("req_password", password);
-          formData.append("login", "Submit");
-
-          const fetchObject = {
-            body: formData,
-            credentials: "include",
-            headers: {
-              "Cache-Control": "max-age=0",
-              "Upgrade-Insecure-Requests": "1"
-            },
-            method: "POST"
-          };
-
-          const data = fetch(
-            `${window.location.origin}/login.php?action=in`,
-            fetchObject
-          ).then(data => {
-            if (data.status === 200) {
-              window.location.reload();
-            }
-          });
-        }
-      }
-
-      if (logins.length > 0) {
-        const loginMap = logins.map(({ id, link, login, password }, i) => {
-          const liID = id || `navAdd${i}`;
-
-          return `<li id="${liID}"><a class="js_login" style="cursor: pointer;" data-login="${login}" data-password="${password}">${link}</a></li>`;
-        });
-
-        const afterEl = document.getElementById(after);
-        afterEl && afterEl.insertAdjacentHTML("afterend", loginMap.join(""));
-
-        document
-          .querySelectorAll("a.js_login")
-          .forEach(
-            (node: HTMLElement) =>
-              node && node.addEventListener("click", handleFastLoginClick)
-          );
-      }
-    }
-  }
-
   // calling functions w/ passed props
   disableProfileEditing(disabledProfiles);
+  setDefaultIcon(defaultIcon);
   createFastLoginLinks(fastLogin);
 }
 
