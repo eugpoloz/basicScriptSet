@@ -2,7 +2,7 @@
   "name": "basicScriptSet",
   "version": "0.0.1",
   "license": "MIT",
-  "main": "docs/bundle.js",
+  "main": "docs/bss.js",
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
