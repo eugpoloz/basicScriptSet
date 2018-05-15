@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/bss.js",
+  entry: "./src/index.js",
   module: {
     rules: [
       {
@@ -10,8 +10,7 @@ module.exports = {
         use: [
           {
             loader: "babel-loader"
-          },
-          { loader: "exports-loader" }
+          }
         ]
       }
     ]
