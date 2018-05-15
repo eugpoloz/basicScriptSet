@@ -11,33 +11,15 @@
   — http://urchoice.rolka.su/profile.php?id=4789
 */
 
-import setDefaultIcon from "./setDefaultIcon";
-import createFastLoginLinks from "./createFastLoginLinks";
-import disableProfileEditing from "./disableProfileEditing";
+import setDefaultIcon from "./customizable/setDefaultIcon";
+import createFastLoginLinks from "./customizable/createFastLoginLinks";
+import disableProfileEditing from "./customizable/disableProfileEditing";
 
 // type definitions and global variables
 declare var bbcode: Function;
 declare var FORUM: any;
 
-export type DefaultIcon = {
-  icon?: string,
-  [position: "after" | "before"]: string | null
-} | null;
-
-export type FastLogin = {
-  after?: string,
-  logins: Array<{
-    login: string,
-    password: string,
-    id?: string,
-    link: string
-  }>
-};
-
-export type DisabledProfiles = {
-  profiles: Array<number>,
-  message?: string
-};
+import type { DefaultIcon, DisabledProfiles, FastLogin } from "./commonTypes";
 
 type Options = {
   disabledProfiles: DisabledProfiles,
@@ -46,11 +28,7 @@ type Options = {
 };
 
 // basic function
-export default function basicScriptSet({
-  disabledProfiles,
-  defaultIcon,
-  fastLogin
-}: Options) {
+export function bss({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   // сначала оригинал загруженного изображения
   // loaded img original first
   (function originalUploadedFirst() {

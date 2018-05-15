@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/bss.js",
   module: {
     rules: [
       {
@@ -17,7 +17,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "docs"),
-    filename: "bundle.js",
+    filename: "bss.js",
     library: "basicScriptSet",
     libraryTarget: "var"
   },

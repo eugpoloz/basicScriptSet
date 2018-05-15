@@ -1,7 +1,7 @@
 // @flow
 declare var FORUM: any;
 
-import type { DefaultIcon } from "./bss";
+import type { DefaultIcon } from "../commonTypes";
 
 // various helper functions
 export function setDefaultIcon(defaultIcon: DefaultIcon = null) {

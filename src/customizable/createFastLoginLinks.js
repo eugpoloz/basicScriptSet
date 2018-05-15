@@ -1,5 +1,5 @@
 // @flow
-import type { FastLogin } from "./bss";
+import type { FastLogin } from "../commonTypes";
 
 declare var GroupID: any;
 

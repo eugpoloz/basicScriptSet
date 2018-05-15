@@ -1,5 +1,5 @@
 // @flow
-import type { DisabledProfiles } from "./bss";
+import type { DisabledProfiles } from "../commonTypes";
 
 declare var UserID: any;
 declare var $: any;
