@@ -4,15 +4,6 @@
     ["flow"],
     ["es2015"],
     [
-      "env",
-      {
-        "targets": {
-          "browsers": ["last 2 Chrome versions"]
-        },
-        "useBuiltIns": true
-      }
-    ],
-    [
       "minify",
       {
         "mangle": {
@@ -24,6 +15,15 @@
             "appendSmilies"
           ]
         }
+      }
+    ],
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 Chrome versions"]
+        },
+        "useBuiltIns": true
       }
     ]
   ]
