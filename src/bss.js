@@ -45,14 +45,10 @@ type Options = {
 };
 
 // basic function
-export default function basicScriptSet({
-  disabledProfiles,
-  defaultIcon,
-  fastLogin
-}: Options) {
+function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   // сначала оригинал загруженного изображения
   // loaded img original first
-  (function originalUploadedFirst() {
+  (async function originalUploadedFirst() {
     if (typeof FORUM.editor === "object") {
       const insertFormat = document.getElementById("image-insert-format");
 
@@ -69,7 +65,7 @@ export default function basicScriptSet({
     }
   })();
 
-  (function addCtrlClicks() {
+  (async function addCtrlClicks() {
     type BBClickEvent = {
       target: EventTarget,
       ctrlKey: boolean,
@@ -123,14 +119,14 @@ export default function basicScriptSet({
     }
   })();
 
-  // (function countMainTextareaSymbols() {
+  // (async function countMainTextareaSymbols() {
   //   const charCounterHTML = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
   //   if (typeof FORUM.editor === "object") {
   //   }
   // })();
 
   // various helper functions
-  function setDefaultIcon(defaultIcon: DefaultIcon = null) {
+  async function setDefaultIcon(defaultIcon: DefaultIcon = null) {
     if (defaultIcon === null) {
       return;
     }
@@ -168,7 +164,7 @@ export default function basicScriptSet({
     }
   }
 
-  function disableProfileEditing({
+  async function disableProfileEditing({
     profiles = [],
     message = "Редактирование данного профиля для вас запрещено."
   }: DisabledProfiles) {
@@ -192,14 +188,14 @@ export default function basicScriptSet({
     });
   }
 
-  function createFastLoginLinks({
+  async function createFastLoginLinks({
     after = "navlogin",
     logins = []
   }: FastLogin) {
     // if the current user group is a guest one
     if (GroupID === 3) {
-      // helper function
-      function handleFastLoginClick({ target }: { target: EventTarget }) {
+      // helper async function
+      async function handleFastLoginClick({ target }: { target: EventTarget }) {
         if (target instanceof HTMLElement) {
           const { login, password } = target.dataset;
 
@@ -219,14 +215,15 @@ export default function basicScriptSet({
             method: "POST"
           };
 
-          const data = fetch(
+          const data = await fetch(
             `${window.location.origin}/login.php?action=in`,
             fetchObject
-          ).then(data => {
-            if (data.status === 200) {
-              window.location.reload();
-            }
-          });
+          );
+
+          // because the answer itself is not perfect, we can't do much good here
+          if (data.status === 200) {
+            window.location.reload();
+          }
         }
       }
 
