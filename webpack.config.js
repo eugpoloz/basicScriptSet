@@ -15,6 +15,11 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "docs"),
-    filename: "bundle.js"
+    filename: "bundle.js",
+    library: "basicScriptSet"
+  },
+  externals: {
+    $: "jQuery",
+    jquery: "jQuery"
   }
 };
