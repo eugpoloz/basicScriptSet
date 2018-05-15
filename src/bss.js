@@ -45,10 +45,14 @@ type Options = {
 };
 
 // basic function
-function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
+export default function basicScriptSet({
+  disabledProfiles,
+  defaultIcon,
+  fastLogin
+}: Options) {
   // сначала оригинал загруженного изображения
   // loaded img original first
-  (async function originalUploadedFirst() {
+  (function originalUploadedFirst() {
     if (typeof FORUM.editor === "object") {
       const insertFormat = document.getElementById("image-insert-format");
 
@@ -65,7 +69,7 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     }
   })();
 
-  (async function addCtrlClicks() {
+  (function addCtrlClicks() {
     type BBClickEvent = {
       target: EventTarget,
       ctrlKey: boolean,
@@ -119,14 +123,14 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     }
   })();
 
-  // (async function countMainTextareaSymbols() {
+  // (function countMainTextareaSymbols() {
   //   const charCounterHTML = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
   //   if (typeof FORUM.editor === "object") {
   //   }
   // })();
 
   // various helper functions
-  async function setDefaultIcon(defaultIcon: DefaultIcon = null) {
+  function setDefaultIcon(defaultIcon: DefaultIcon = null) {
     if (defaultIcon === null) {
       return;
     }
@@ -164,7 +168,7 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     }
   }
 
-  async function disableProfileEditing({
+  function disableProfileEditing({
     profiles = [],
     message = "Редактирование данного профиля для вас запрещено."
   }: DisabledProfiles) {
@@ -188,14 +192,14 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
     });
   }
 
-  async function createFastLoginLinks({
+  function createFastLoginLinks({
     after = "navlogin",
     logins = []
   }: FastLogin) {
     // if the current user group is a guest one
     if (GroupID === 3) {
-      // helper async function
-      async function handleFastLoginClick({ target }: { target: EventTarget }) {
+      // helper function
+      function handleFastLoginClick({ target }: { target: EventTarget }) {
         if (target instanceof HTMLElement) {
           const { login, password } = target.dataset;
 
@@ -215,15 +219,14 @@ function basicScriptSet({ disabledProfiles, defaultIcon, fastLogin }: Options) {
             method: "POST"
           };
 
-          const data = await fetch(
+          const data = fetch(
             `${window.location.origin}/login.php?action=in`,
             fetchObject
-          );
-
-          // because the answer itself is not perfect, we can't do much good here
-          if (data.status === 200) {
-            window.location.reload();
-          }
+          ).then(data => {
+            if (data.status === 200) {
+              window.location.reload();
+            }
+          });
         }
       }
 
