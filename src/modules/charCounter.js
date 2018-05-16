@@ -1,5 +1,5 @@
 // @flow
-// import debounce from "lodash/debounce";
+import debounce from "lodash/debounce";
 declare var FORUM: any;
 
 // type Props = {
@@ -27,16 +27,25 @@ export default function charCounter() {
       }
     }
 
-    // const debouncedUpdate = debounce(e => updateCharCounter(e), 200);
+    const debouncedUpdate = debounce(e => updateCharCounter(e), 200);
 
     if (textarea) {
       if (counterSibling) {
         counterSibling.insertAdjacentHTML("afterend", charCounterHTML);
       }
-      textarea.addEventListener(
-        "keypress keydown keyup change cut copy paste",
-        updateCharCounter
-      );
+      [
+        "keypress",
+        "keyup",
+        "keydown",
+        "change",
+        "cut",
+        "paste",
+        "input",
+        "selectionchange",
+        "propertychange"
+      ].forEach(event => {
+        textarea.addEventListener(event, debouncedUpdate);
+      });
     }
   }
 }
