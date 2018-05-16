@@ -26,7 +26,7 @@ export default function charCounter() {
       }
     }
 
-    const debouncedUpdate = debounce(e => updateCharCounter(e), 200);
+    const debouncedUpdate = debounce(e => updateCharCounter(e), 75);
 
     if (textarea) {
       if (counterSibling) {
