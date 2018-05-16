@@ -33,6 +33,8 @@ export default function charCounter() {
         counterSibling.insertAdjacentHTML("afterend", charCounterHTML);
       }
       [
+        "focus",
+        "blur",
         "keypress",
         "keyup",
         "keydown",
