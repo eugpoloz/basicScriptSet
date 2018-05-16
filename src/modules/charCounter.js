@@ -17,8 +17,6 @@ export default function charCounter() {
       if (target instanceof HTMLTextAreaElement) {
         const { length } = target.value;
 
-        console.log(length);
-
         const counter = document.querySelector("#charcounter .charcount");
         if (counter) {
           counter.innerText = length.toString();
