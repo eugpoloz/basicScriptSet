@@ -2,13 +2,12 @@
 import debounce from "lodash/debounce";
 declare var FORUM: any;
 
-type Props = {
-  counterText?: string
-};
+// type Props = {
+//   counterText?: string
+// };
 
-export default function charCounter(props: Props) {
-  const { counterText = "Символов в сообщении" } = props;
-  const charCounterHTML = `<div id="charcounter">${counterText}: <span class="charcount">0</span></div>`;
+export default function charCounter() {
+  const charCounterHTML = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
 
   if (typeof FORUM.editor === "object") {
     const textarea = document.getElementById("main-reply");
