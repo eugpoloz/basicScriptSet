@@ -28,15 +28,19 @@ export default function charCounter() {
     );
 
     if (textarea instanceof HTMLTextAreaElement) {
-      if (typeof FORUM.topic === "object") {
-        const id = window.location.search.substr(1).split("=")[1];
-        const savedPost = localStorage.getItem(`topic${id}`);
-
-        savedPost && updateCharCounter(savedPost);
-      }
       if (counterSibling) {
         counterSibling.insertAdjacentHTML("afterend", charCounterHTML);
       }
+
+      if (typeof FORUM.topic === "object") {
+        const id = window.location.search.substr(4);
+        const savedPost = localStorage.getItem(`topic${id}`);
+
+        if (savedPost !== null && savedPost !== undefined) {
+          updateCharCounter(savedPost);
+        }
+      }
+
       [
         "focus",
         "blur",
