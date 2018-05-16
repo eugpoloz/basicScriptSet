@@ -13,20 +13,24 @@ export default function charCounter() {
     const textarea = document.getElementById("main-reply");
     const counterSibling = document.querySelector("#post p.areafield.required");
 
-    function updateCharCounter({ target }: Event) {
-      if (target instanceof HTMLTextAreaElement) {
-        const { length } = target.value;
+    function updateCharCounter(value: string) {
+      const { length } = value;
 
-        const counter = document.querySelector("#charcounter .charcount");
-        if (counter) {
-          counter.innerText = length.toString();
-        }
+      const counter = document.querySelector("#charcounter .charcount");
+      if (counter) {
+        counter.innerText = length.toString();
       }
     }
 
-    const debouncedUpdate = debounce(e => updateCharCounter(e), 75);
+    const debouncedUpdate = debounce(
+      ({ target }) => updateCharCounter(target.value),
+      75
+    );
 
-    if (textarea) {
+    if (textarea instanceof HTMLTextAreaElement) {
+      if (textarea.value.length > 0) {
+        updateCharCounter(textarea.value);
+      }
       if (counterSibling) {
         counterSibling.insertAdjacentHTML("afterend", charCounterHTML);
       }
