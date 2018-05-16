@@ -13,10 +13,9 @@ export default function charCounter() {
     const textarea = document.getElementById("main-reply");
     const counterSibling = document.querySelector("#post p.areafield.required");
 
-    function updateCharCounter({ currentTarget }: Event) {
-      console.log("ran");
-      if (currentTarget instanceof HTMLTextAreaElement) {
-        const { length } = currentTarget.value;
+    function updateCharCounter({ target }: Event) {
+      if (target instanceof HTMLTextAreaElement) {
+        const { length } = target.value;
 
         console.log(length);
 
