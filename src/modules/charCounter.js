@@ -6,9 +6,8 @@ type Props = {
   counterText?: string
 };
 
-export default function charCounter({
-  counterText = "Символов в сообщении"
-}: Props) {
+export default function charCounter(props: Props) {
+  const { counterText = "Символов в сообщении" } = props;
   const charCounterHTML = `<div id="charcounter">${counterText}: <span class="charcount">0</span></div>`;
 
   if (typeof FORUM.editor === "object") {
