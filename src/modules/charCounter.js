@@ -24,12 +24,15 @@ export default function charCounter() {
 
     const debouncedUpdate = debounce(
       ({ target }) => updateCharCounter(target.value),
-      75
+      15
     );
 
     if (textarea instanceof HTMLTextAreaElement) {
-      if (textarea.value.length > 0) {
-        updateCharCounter(textarea.value);
+      if (typeof FORUM.topic === "object") {
+        const id = window.location.search.substr(1).split("=")[1];
+        const savedPost = localStorage.getItem(`topic${id}`);
+
+        savedPost && updateCharCounter(savedPost);
       }
       if (counterSibling) {
         counterSibling.insertAdjacentHTML("afterend", charCounterHTML);
