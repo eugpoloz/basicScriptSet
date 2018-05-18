@@ -88,15 +88,17 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
     }
   }
 
-  if (codeboxNodeList.length > 0) {
-    codeboxNodeList.forEach(node => {
-      const legend = node.querySelector(".legend");
-      if (legend) {
-        changeText(legend, textHTML);
-      }
-      node.addEventListener("click", codeSelector);
-    });
-  }
+  document.addEventListener("DOMContentLoaded", () => {
+    if (codeboxNodeList.length > 0) {
+      codeboxNodeList.forEach(node => {
+        const legend = node.querySelector(".legend");
+        if (legend) {
+          changeText(legend, textHTML);
+        }
+        node.addEventListener("click", codeSelector);
+      });
+    }
+  });
   // }
 }
 
