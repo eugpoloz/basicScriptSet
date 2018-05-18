@@ -26,7 +26,9 @@ type CodeBoxProps = {
   text?: string
 };
 
-export default function selectCodeBoxContents(props: CodeBoxProps) {
+export default function selectCodeBoxContents({
+  text = "Выделить код:"
+}: CodeBoxProps) {
   if (typeof FORUM.topic === "object" || typeof FORUM.editor === "object") {
     const codeboxNodeList = document.querySelectorAll(".code-box");
 
@@ -51,7 +53,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
     }
 
     if (codeboxNodeList.length > 0) {
-      const { text = "Выделить код:" } = props;
+      // const { text = "Выделить код:" } = props;
 
       codeboxNodeList.forEach(node => {
         const legend = node.querySelector(".legend");
