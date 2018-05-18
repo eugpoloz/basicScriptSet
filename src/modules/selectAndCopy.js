@@ -76,7 +76,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
                 window.clearTimeout(timer);
                 timer = window.setTimeout(
                   () => changeText(elLegend, textHTML),
-                  10000
+                  3000
                 ); // in ms
               })();
             }
