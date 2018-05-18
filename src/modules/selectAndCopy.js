@@ -102,6 +102,22 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
   // }
 }
 
+export function listenToCodeBox() {
+  const codeboxNodeList = document.querySelectorAll(".code-box");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    function codeSelector(e: MouseEvent) {
+      console.log(e);
+    }
+
+    if (codeboxNodeList.length > 0) {
+      codeboxNodeList.forEach(node =>
+        node.addEventListener("click", codeSelector)
+      );
+    }
+  });
+}
+
 // previous script for reference
 // $(function() {
 //    /* ВЫДЕЛЕНИЕ КОДА ПО КЛИКУ, с сайта max22.ru */
