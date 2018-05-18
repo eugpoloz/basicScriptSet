@@ -1,5 +1,5 @@
 // @flow
-declare var FORUM: any;
+declare var FORUM: Object;
 
 export default function addFontsToList(fonts: Array<string>) {
   if (typeof FORUM.editor === "object") {

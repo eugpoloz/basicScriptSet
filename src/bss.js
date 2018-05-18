@@ -19,7 +19,7 @@ import charCounter from "./modules/charCounter";
 
 // type definitions and global variables
 declare var bbcode: Function;
-declare var FORUM: any;
+declare var FORUM: Object;
 
 import type { DefaultIcon, DisabledProfiles, FastLogin } from "./commonTypes";
 

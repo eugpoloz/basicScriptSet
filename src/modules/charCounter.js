@@ -1,6 +1,6 @@
 // @flow
 import debounce from "lodash/debounce";
-declare var FORUM: any;
+declare var FORUM: Object;
 
 // type Props = {
 //   counterText?: string

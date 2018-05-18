@@ -1,5 +1,5 @@
 // @flow
-declare var FORUM: any;
+declare var FORUM: Object;
 
 import type { DefaultIcon } from "../commonTypes";
 
