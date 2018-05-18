@@ -94,7 +94,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
       if (legend) {
         changeText(legend, textHTML);
       }
-      node.addEventListener("click", (e: MouseEvent) => codeSelector(e));
+      node.addEventListener("click", codeSelector);
     });
   }
   // }
