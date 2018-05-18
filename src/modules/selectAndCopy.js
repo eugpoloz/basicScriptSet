@@ -109,6 +109,75 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
   }
 }
 
+export function debugCodeSelection(props: CodeBoxProps) {
+  const text = props && props.text ? props.text : "Выделить и скопировать:";
+  const textHTML = `<a href="#">${text}</a>`;
+  const copiedText =
+    props && props.copiedText
+      ? props.copiedText
+      : "Скопировано в буфер обмена!";
+
+  function codeSelector(e: MouseEvent) {
+    e.preventDefault();
+    const { target } = e;
+
+    if (
+      target instanceof HTMLElement &&
+      (target.tagName === "PRE" || target.tagName === "A")
+    ) {
+      const nearestParent = target.closest(".code-box");
+
+      const elToSelect =
+        target.tagName === "PRE"
+          ? target
+          : nearestParent && nearestParent.querySelector("pre");
+      const elLegend = nearestParent && nearestParent.querySelector(".legend");
+
+      if (elToSelect instanceof HTMLPreElement) {
+        selectElementText(elToSelect);
+        const copysuccess = copySelectionText();
+        if (copysuccess === true) {
+          // let's show user that our stuff is copied to clipboard
+          if (elLegend) {
+            changeText(elLegend, copiedText);
+            let timer;
+
+            function revertTextBack() {
+              window.clearTimeout(timer);
+              timer = window.setTimeout(
+                () => changeText(elLegend, textHTML),
+                // in ms
+                3000
+              );
+            }
+
+            revertTextBack();
+          }
+        }
+      }
+    }
+  }
+
+  function remakeCodeBoxes() {
+    const codeboxNodeList = document.querySelectorAll(".code-box");
+    if (codeboxNodeList.length > 0) {
+      codeboxNodeList.forEach(node => {
+        const legend = node.querySelector(".legend");
+        if (legend) {
+          changeText(legend, textHTML);
+        }
+        node.addEventListener("click", codeSelector);
+      });
+    }
+  }
+
+  if (document.readyState !== "complete") {
+    document.addEventListener("DOMContentLoaded", remakeCodeBoxes);
+  } else {
+    remakeCodeBoxes();
+  }
+}
+
 // previous script for reference
 // $(function() {
 //    /* ВЫДЕЛЕНИЕ КОДА ПО КЛИКУ, с сайта max22.ru */
