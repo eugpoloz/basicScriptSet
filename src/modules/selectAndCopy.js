@@ -103,17 +103,12 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
 }
 
 export function listenToCodeBox() {
-  const codeboxNodeList = document.querySelectorAll(".code-box");
-
   window.addEventListener("load", () => {
-    function codeSelector(e: MouseEvent) {
-      console.log(e);
-    }
-
+    const codeboxNodeList = document.querySelectorAll(".code-box");
     if (codeboxNodeList.length > 0) {
-      codeboxNodeList.forEach(node =>
-        node.addEventListener("click", codeSelector)
-      );
+      codeboxNodeList.forEach(node => {
+        node.addEventListener("click", (e: MouseEvent) => console.log(e));
+      });
     }
   });
 }
