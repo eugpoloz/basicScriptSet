@@ -1,16 +1,16 @@
 // @flow
+import { insertAfterAreafield, isHelperKey } from "../shared";
+
 declare var FORUM: Object;
 
 export default function sendOnCtrlEnter() {
   if (typeof FORUM.editor === "object") {
     const textarea = document.querySelector("#main-reply");
+    const submitInput = document.querySelector(`input[name="submit"]`);
 
     if (textarea instanceof HTMLTextAreaElement) {
-      function checkWhatsClicked({ keyCode, ctrlKey }: KeyboardEvent) {
-        if (keyCode === 13 && ctrlKey) {
-          const submitInput = document.querySelector(
-            `#post input[name="submit"]`
-          );
+      function checkWhatsClicked(e: KeyboardEvent) {
+        if (e.keyCode === 13 && isHelperKey(e)) {
           submitInput && submitInput.click();
           textarea.value = "";
         }
@@ -18,11 +18,8 @@ export default function sendOnCtrlEnter() {
       textarea.addEventListener("keydown", checkWhatsClicked);
     }
 
-    const formsubmit = document.querySelector("#post p.formsubmit");
-    const html = `<div class="fast-submit">Для быстрой отправки нажмите <strong>Ctrl+Enter<strong> (<strong>Cmd+Enter</strong> для MacOS).</div>`;
+    const html = `<div class="fastsubmit--text" style="margin-left: 1rem; margin-right: auto;">Для быстрой отправки нажмите <strong>Ctrl+Enter</strong> (<strong>Cmd+Enter</strong>).</div>`;
 
-    if (formsubmit) {
-      formsubmit.insertAdjacentHTML("beforeend", html);
-    }
+    insertAfterAreafield(html);
   }
 }

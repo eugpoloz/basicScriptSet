@@ -1,5 +1,7 @@
 // @flow
 import debounce from "lodash/debounce";
+import { insertAfterAreafield } from "../shared";
+
 declare var FORUM: Object;
 
 // type Props = {
@@ -7,11 +9,10 @@ declare var FORUM: Object;
 // };
 
 export default function charCounter() {
-  const charCounterHTML = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
+  const html = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
 
   if (typeof FORUM.editor === "object") {
     const textarea = document.getElementById("main-reply");
-    const counterSibling = document.querySelector("#post p.areafield.required");
 
     function updateCharCounter(value: string) {
       const { length } = value;
@@ -28,9 +29,7 @@ export default function charCounter() {
     );
 
     if (textarea instanceof HTMLTextAreaElement) {
-      if (counterSibling) {
-        counterSibling.insertAdjacentHTML("afterend", charCounterHTML);
-      }
+      insertAfterAreafield(html);
 
       if (typeof FORUM.topic === "object") {
         const id = window.location.search.substr(4);
