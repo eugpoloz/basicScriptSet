@@ -1,6 +1,6 @@
 // @flow
 import debounce from "lodash/debounce";
-import { insertAfterAreafield } from "../shared";
+import { insertAfter } from "../shared";
 
 declare var FORUM: Object;
 
@@ -29,7 +29,7 @@ export default function charCounter() {
     );
 
     if (textarea instanceof HTMLTextAreaElement) {
-      insertAfterAreafield(html);
+      insertAfter("p.areafield.required", html);
 
       if (typeof FORUM.topic === "object") {
         const id = window.location.search.substr(4);

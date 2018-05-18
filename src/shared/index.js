@@ -1,5 +1,5 @@
 // @flow
-import insertAfterAreafield from "./insertAfterAreaField";
+import insertAfter from "./insertAfter";
 import isHelperKey from "./isHelperKey";
 
-export { insertAfterAreafield, isHelperKey };
+export { insertAfter, isHelperKey };
