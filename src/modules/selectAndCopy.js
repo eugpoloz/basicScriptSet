@@ -86,7 +86,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
   }
 
   function remakeCodeBoxes() {
-    console.log("remakeCodeBoxes ran with domready");
+    console.log("remade code boxes with various conditions");
     const codeboxNodeList = document.querySelectorAll(".code-box");
     if (codeboxNodeList.length > 0) {
       codeboxNodeList.forEach(node => {
@@ -106,7 +106,11 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
       remakeCodeBoxes();
     }
   } else {
-    window.addEventListener("load", remakeCodeBoxes);
+    if (document.readyState !== "complete") {
+      document.addEventListener("DOMContentLoaded", remakeCodeBoxes);
+    } else {
+      window.addEventListener("load", remakeCodeBoxes);
+    }
   }
 }
 
