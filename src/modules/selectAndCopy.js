@@ -100,14 +100,15 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
 }
 
 export function listenToCodeBox() {
-  document.addEventListener("DOMContentLoaded", () => {
-    const codeboxNodeList = document.querySelectorAll(".code-box");
-    if (codeboxNodeList.length > 0) {
-      codeboxNodeList.forEach(node => {
-        node.addEventListener("click", (e: MouseEvent) => console.log(e));
-      });
-    }
-  });
+  const codeboxNodeList = document.querySelectorAll(".code-box");
+  function consoleLog(e) {
+    console.log(e);
+  }
+  if (codeboxNodeList.length > 0) {
+    codeboxNodeList.forEach(node => {
+      node.addEventListener("click", (e: MouseEvent) => consoleLog(e));
+    });
+  }
 }
 
 // previous script for reference
