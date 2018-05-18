@@ -34,11 +34,14 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
       e.preventDefault();
       const { target } = e;
 
-      if (target instanceof HTMLElement) {
+      if (
+        target instanceof HTMLElement &&
+        (target.tagName === "PRE" || target.tagName === "A")
+      ) {
         const nearestParent = target.closest(".code-box");
 
         const elToSelect =
-          target.tagName === "pre"
+          target.tagName === "PRE"
             ? target
             : nearestParent && nearestParent.querySelector("pre");
 
