@@ -4,11 +4,12 @@ declare var FORUM: Object;
 // taken from this tutorial
 // http://www.javascriptkit.com/javatutors/copytoclipboard.shtml
 function selectElementText(el) {
-  const range = document.createRange(); // create new range object
-  range.selectNodeContents(el); // set range to encompass desired element text
-  const selection = window.getSelection(); // get Selection object from currently user selected text
-  selection.removeAllRanges(); // unselect any user selected text (if any)
-  selection.addRange(range); // add range to Selection object to select it
+  // let's combine with previous code and augment
+  let range = document.createRange();
+  range.selectNodeContents(el);
+  let selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
 }
 
 function copySelectionText() {
@@ -47,6 +48,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
         : "Скопировано в буфер обмена!";
 
     function codeSelector(e: Event) {
+      console.log("worked?");
       e.preventDefault();
       const { target } = e;
 
@@ -62,6 +64,11 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
             : nearestParent && nearestParent.querySelector("pre");
         const elLegend =
           nearestParent && nearestParent.querySelector(".legend");
+
+        console.log(
+          `el to select is pre: `,
+          elToSelect instanceof HTMLPreElement
+        );
 
         if (elToSelect instanceof HTMLPreElement) {
           selectElementText(elToSelect);
