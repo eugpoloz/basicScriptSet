@@ -16,6 +16,7 @@ import createFastLoginLinks from "./customizable/createFastLoginLinks";
 import disableProfileEditing from "./customizable/disableProfileEditing";
 import addFontsToList from "./modules/addFontsToList";
 import charCounter from "./modules/charCounter";
+import selectCodeBoxContents from "./modules/selectAndCopy";
 
 // type definitions and global variables
 declare var bbcode: Function;
@@ -116,7 +117,7 @@ export function bss({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   createFastLoginLinks(fastLogin);
 }
 
-export { addFontsToList, charCounter };
+export { addFontsToList, charCounter, selectCodeBoxContents };
 
 // possible config for reference:
 // basicScriptSet({
