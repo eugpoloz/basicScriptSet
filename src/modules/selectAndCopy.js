@@ -99,10 +99,10 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
     }
   }
 
-  if (document.readyState === "complete") {
-    remakeCodeBoxes();
-  } else {
+  if (document.readyState !== "complete") {
     document.addEventListener("DOMContentLoaded", remakeCodeBoxes);
+  } else {
+    remakeCodeBoxes();
   }
 }
 
