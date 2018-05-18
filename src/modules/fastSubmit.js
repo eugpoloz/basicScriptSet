@@ -1,5 +1,5 @@
 // @flow
-import { insertAfter, isHelperKey } from "../shared";
+import { insertAfter } from "../shared";
 
 declare var FORUM: Object;
 
@@ -10,8 +10,8 @@ export default function fastSubmit() {
     const previewInput = document.querySelector(`input[name="preview"]`);
 
     if (textarea instanceof HTMLTextAreaElement) {
-      function checkWhatsClicked(e: KeyboardEvent) {
-        if (e.keyCode === 13 && isHelperKey(e)) {
+      function checkWhatsClicked({ keyCode, ctrlKey, metaKey }: KeyboardEvent) {
+        if (keyCode === 13 && (ctrlKey || metaKey)) {
           submitInput && submitInput.click();
           textarea.value = "";
         }
