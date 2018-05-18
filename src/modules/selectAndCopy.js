@@ -13,7 +13,7 @@ function selectElementText(el) {
 }
 
 function copySelectionText() {
-  let copysuccess; // var to check whether execCommand successfully executed
+  let copysuccess;
   try {
     copysuccess = document.execCommand("copy"); // run command to copy selected text to clipboard
   } catch (e) {
@@ -37,71 +37,70 @@ type CodeBoxProps = {
 };
 
 export default function selectCodeBoxContents(props: CodeBoxProps) {
-  if (typeof FORUM.topic === "object" || typeof FORUM.editor === "object") {
-    const codeboxNodeList = document.querySelectorAll(".code-box");
+  // if (typeof FORUM.topic === "object" || typeof FORUM.editor === "object") {
+  const codeboxNodeList = document.querySelectorAll(".code-box");
 
-    const text = props && props.text ? props.text : "Выделить и скопировать:";
-    const textHTML = `<a href="#">${text}</a>`;
-    const copiedText =
-      props && props.copiedText
-        ? props.copiedText
-        : "Скопировано в буфер обмена!";
+  const text = props && props.text ? props.text : "Выделить и скопировать:";
+  const textHTML = `<a href="#">${text}</a>`;
+  const copiedText =
+    props && props.copiedText
+      ? props.copiedText
+      : "Скопировано в буфер обмена!";
 
-    function codeSelector(e: Event) {
-      console.log("worked?");
-      e.preventDefault();
-      const { target } = e;
+  function codeSelector(e: Event) {
+    e.preventDefault();
+    const { target } = e;
 
-      if (
-        target instanceof HTMLElement &&
-        (target.tagName === "PRE" || target.tagName === "A")
-      ) {
-        const nearestParent = target.closest(".code-box");
+    if (
+      target instanceof HTMLElement &&
+      (target.tagName === "PRE" || target.tagName === "A")
+    ) {
+      const nearestParent = target.closest(".code-box");
 
-        const elToSelect =
-          target.tagName === "PRE"
-            ? target
-            : nearestParent && nearestParent.querySelector("pre");
-        const elLegend =
-          nearestParent && nearestParent.querySelector(".legend");
+      const elToSelect =
+        target.tagName === "PRE"
+          ? target
+          : nearestParent && nearestParent.querySelector("pre");
+      const elLegend = nearestParent && nearestParent.querySelector(".legend");
 
-        console.log(
-          `el to select is pre: `,
-          elToSelect instanceof HTMLPreElement
-        );
+      if (elToSelect instanceof HTMLPreElement) {
+        selectElementText(elToSelect);
+        const copysuccess = copySelectionText();
+        if (copysuccess === true) {
+          // let's show user that our stuff is copied to clipboard
+          if (elLegend) {
+            changeText(elLegend, copiedText);
+            let timer;
 
-        if (elToSelect instanceof HTMLPreElement) {
-          selectElementText(elToSelect);
-          const copysuccess = copySelectionText();
-          if (copysuccess === true) {
-            // let's show user that our stuff is copied to clipboard
-            if (elLegend) {
-              changeText(elLegend, copiedText);
-              let timer;
-
-              (function revertTextBack() {
-                window.clearTimeout(timer);
-                timer = window.setTimeout(
-                  () => changeText(elLegend, textHTML),
-                  3000
-                ); // in ms
-              })();
+            function revertTextBack() {
+              window.clearTimeout(timer);
+              timer = window.setTimeout(
+                () => changeText(elLegend, textHTML),
+                // in ms
+                3000
+              );
             }
+
+            revertTextBack();
           }
         }
       }
     }
-
-    if (codeboxNodeList.length > 0) {
-      codeboxNodeList.forEach(node => {
-        const legend = node.querySelector(".legend");
-        if (legend) {
-          changeText(legend, textHTML);
-        }
-        node.addEventListener("click", codeSelector);
-      });
-    }
   }
+
+  if (codeboxNodeList.length > 0) {
+    codeboxNodeList.forEach(node => {
+      const legend = node.querySelector(".legend");
+      if (legend) {
+        changeText(legend, textHTML);
+      }
+      node.addEventListener("click", (e: Event) => {
+        console.log(e);
+        codeSelector(e);
+      });
+    });
+  }
+  // }
 }
 
 // previous script for reference
