@@ -47,7 +47,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
       ? props.copiedText
       : "Скопировано в буфер обмена!";
 
-  function codeSelector(e: Event) {
+  function codeSelector(e: MouseEvent) {
     e.preventDefault();
     const { target } = e;
 
@@ -90,14 +90,11 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
 
   if (codeboxNodeList.length > 0) {
     codeboxNodeList.forEach(node => {
-      node.addEventListener("click", (e: Event) => {
-        const legend = node.querySelector(".legend");
-        if (legend) {
-          changeText(legend, textHTML);
-        }
-
-        codeSelector(e);
-      });
+      const legend = node.querySelector(".legend");
+      if (legend) {
+        changeText(legend, textHTML);
+      }
+      node.addEventListener("click", (e: MouseEvent) => codeSelector(e));
     });
   }
   // }
