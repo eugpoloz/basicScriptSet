@@ -31,12 +31,12 @@ function changeText(el?: HTMLElement, innerHTML: string) {
 }
 
 // our custom code
-type CodeBoxProps = {
+type Props = {
   text?: string,
   copiedText?: string
 };
 
-export default function selectCodeBox(props: CodeBoxProps) {
+export default function selectCodeBox(props: Props) {
   const text = props && props.text ? props.text : "Выделить и скопировать:";
   const textHTML = `<a href="#">${text}</a>`;
   const copiedText =
