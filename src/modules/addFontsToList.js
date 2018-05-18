@@ -6,14 +6,9 @@ export default function addFontsToList(fonts: Array<string>) {
     const fontArea = document.getElementById("font-area");
     if (fontArea) {
       fonts.map(font => {
-        fontArea.insertAdjacentHTML(
-          "beforeend",
-          `
-<div style="font-family:${font}">
-  <span>${font}</span>
-  <img onclick="bbcode('[font=${font}]','[/font]')" src="/i/blank.gif">
-</div>`
-        );
+        const html = `<div style="font-family:${font}"><span>${font}</span> <img onclick="bbcode('[font=${font}]','[/font]')" src="/i/blank.gif"> </div>`;
+
+        fontArea.insertAdjacentHTML("beforeend", html);
       });
     }
   }
