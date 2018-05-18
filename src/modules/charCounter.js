@@ -18,7 +18,7 @@ export default function charCounter() {
 
       const counter = document.querySelector("#charcounter .charcount");
       if (counter) {
-        counter.Text.data = length.toString();
+        counter.data = length.toString();
       }
     }
 
