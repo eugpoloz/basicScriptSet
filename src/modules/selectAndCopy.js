@@ -97,19 +97,25 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
   }
 }
 
-//   motivatebox.addEventListener(
-//     "mouseup",
-//     function(e) {
-//       var e = e || event; // equalize event object between modern and older IE browsers
-//       var target = e.target || e.srcElement; // get target element mouse is over
-//       if (target.className == "motivate") {
-//         selectElementText(target); // select the element's text we wish to read
-//         var copysuccess = copySelectionText();
-//         if (copysuccess) {
-//           showtooltip(e);
-//         }
+// previous script for reference
+// $(function() {
+//    /* ВЫДЕЛЕНИЕ КОДА ПО КЛИКУ, с сайта max22.ru */
+//    $('.code-box').find('pre').click(function() {
+//       var rng, sel;
+//       if (document.createRange) {
+//          rng = document.createRange();
+//          rng.selectNode(this);
+//          sel = window.getSelection();
+//          var strSel = '' + sel;
+//          if (!strSel.length) {
+//             sel.removeAllRanges();
+//             sel.addRange(rng);
+//          }
+//       } else {
+//          var rng = document.body.createTextRange();
+//          rng.moveToElementText(this);
+//          rng.select();
 //       }
-//     },
-//     false
-//   );
-// }
+//    });
+//    $('.code-box').find('.legend').html('Кликните по коду ниже, чтобы его выделить:');
+// }); /* Конец скрипта */
