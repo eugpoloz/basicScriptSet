@@ -21,14 +21,30 @@ function copySelectionText() {
   return copysuccess;
 }
 
+// OUR CODE
+// helper func
+function changeText(el?: HTMLElement, innerHTML: string) {
+  if (el) {
+    el.innerHTML = innerHTML;
+  }
+}
+
 // our custom code
 type CodeBoxProps = {
-  text?: string
+  text?: string,
+  copiedText?: string
 };
 
 export default function selectCodeBoxContents(props: CodeBoxProps) {
   if (typeof FORUM.topic === "object" || typeof FORUM.editor === "object") {
     const codeboxNodeList = document.querySelectorAll(".code-box");
+
+    const text = props && props.text ? props.text : "Выделить и скопировать:";
+    const textHTML = `<a href="#">${text}</a>`;
+    const copiedText =
+      props && props.copiedText
+        ? props.copiedText
+        : "Скопировано в буфер обмена!";
 
     function codeSelector(e: Event) {
       e.preventDefault();
@@ -44,11 +60,27 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
           target.tagName === "PRE"
             ? target
             : nearestParent && nearestParent.querySelector("pre");
+        const elLegend =
+          nearestParent && nearestParent.querySelector(".legend");
 
         if (elToSelect instanceof HTMLPreElement) {
           selectElementText(elToSelect);
           const copysuccess = copySelectionText();
-          console.log(copysuccess);
+          if (copysuccess === true) {
+            // let's show user that our stuff is copied to clipboard
+            if (elLegend) {
+              changeText(elLegend, copiedText);
+              let timer;
+
+              (function revertTextBack() {
+                window.clearTimeout(timer);
+                timer = window.setTimeout(
+                  () => changeText(elLegend, textHTML),
+                  10000
+                ); // in ms
+              })();
+            }
+          }
         }
       }
     }
@@ -57,8 +89,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
       codeboxNodeList.forEach(node => {
         const legend = node.querySelector(".legend");
         if (legend) {
-          const text = props && props.text ? props.text : "Выделить код:";
-          legend.innerHTML = `<a href="#">${text}</a>`;
+          changeText(legend, textHTML);
         }
         node.addEventListener("click", codeSelector);
       });
