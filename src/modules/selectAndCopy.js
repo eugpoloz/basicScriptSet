@@ -105,7 +105,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
 export function listenToCodeBox() {
   const codeboxNodeList = document.querySelectorAll(".code-box");
 
-  document.addEventListener("load", () => {
+  window.addEventListener("load", () => {
     function codeSelector(e: MouseEvent) {
       console.log(e);
     }
