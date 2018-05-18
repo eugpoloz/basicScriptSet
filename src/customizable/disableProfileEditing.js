@@ -2,15 +2,12 @@
 import type { DisabledProfiles } from "../commonTypes";
 
 declare var UserID: any;
-declare var $: any;
 
 export default function disableProfileEditing({
   profiles = [],
   message = "Редактирование данного профиля для вас запрещено."
 }: DisabledProfiles) {
-  // form jQuery method that checks if main #pun is ready (I guess)
-  // this is useful for us (I guess?)
-  $().pun_mainReady(function() {
+  document.addEventListener("DOMContentLoaded", () => {
     const profile = document.getElementById("profile");
     if (profile && profiles.length > 0) {
       profile.style.display = "none";
