@@ -9,7 +9,7 @@ export function addCtrlClicks() {
       const { parentNode } = target;
       if (parentNode instanceof HTMLElement) {
         const { id } = parentNode;
-        const nodeID = id.substr(8);
+        const nodeID = id.substr(7);
 
         if (ctrlKey || metaKey || altKey) {
           switch (nodeID) {
