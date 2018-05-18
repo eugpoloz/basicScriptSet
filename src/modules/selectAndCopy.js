@@ -47,10 +47,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
       ? props.copiedText
       : "Скопировано в буфер обмена!";
 
-  function codeSelector(e: Event) {
-    e.preventDefault();
-    const { target } = e;
-
+  function codeSelector({ target }: Event) {
     if (
       target instanceof HTMLElement &&
       (target.tagName === "PRE" || target.tagName === "A")
@@ -90,12 +87,14 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
 
   if (codeboxNodeList.length > 0) {
     codeboxNodeList.forEach(node => {
-      const legend = node.querySelector(".legend");
-      if (legend) {
-        changeText(legend, textHTML);
-      }
       node.addEventListener("click", (e: Event) => {
-        console.log(e);
+        e.preventDefault();
+        console.log(e.target);
+
+        const legend = node.querySelector(".legend");
+        if (legend) {
+          changeText(legend, textHTML);
+        }
         codeSelector(e);
       });
     });
