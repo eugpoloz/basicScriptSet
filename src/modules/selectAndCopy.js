@@ -87,6 +87,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
   }
 
   function remakeCodeBoxes() {
+    console.log("remakeCodeBoxes ran");
     const codeboxNodeList = document.querySelectorAll(".code-box");
     if (codeboxNodeList.length > 0) {
       codeboxNodeList.forEach(node => {
