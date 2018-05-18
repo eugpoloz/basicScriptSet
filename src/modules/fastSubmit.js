@@ -3,7 +3,7 @@ import { insertAfterAreafield, isHelperKey } from "../shared";
 
 declare var FORUM: Object;
 
-export default function sendOnCtrlEnter() {
+export default function fastSubmit() {
   if (typeof FORUM.editor === "object") {
     const textarea = document.querySelector("#main-reply");
     const submitInput = document.querySelector(`input[name="submit"]`);
@@ -18,7 +18,7 @@ export default function sendOnCtrlEnter() {
       textarea.addEventListener("keydown", checkWhatsClicked);
     }
 
-    const html = `<div class="fastsubmit--text" style="margin-left: 1rem; margin-right: auto;">Для быстрой отправки нажмите <strong>Ctrl+Enter</strong> (<strong>Cmd+Enter</strong>).</div>`;
+    const html = `<div id="fastsubmit">Для быстрой отправки нажмите <strong>Ctrl+Enter</strong> (<strong>Cmd+Enter</strong>).</div>`;
 
     insertAfterAreafield(html);
   }

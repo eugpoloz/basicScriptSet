@@ -17,7 +17,7 @@ import disableProfileEditing from "./customizable/disableProfileEditing";
 import addFontsToList from "./modules/addFontsToList";
 import charCounter from "./modules/charCounter";
 import selectCodeBox from "./modules/selectAndCopy";
-import sendOnCtrlEnter from "./modules/sendOnCtrlEnter";
+import fastSubmit from "./modules/fastSubmit";
 import {
   addCtrlClicks,
   originalUploadedFirst
@@ -42,7 +42,7 @@ export function bss({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   createFastLoginLinks(fastLogin);
 }
 
-export { addFontsToList, charCounter, selectCodeBox, sendOnCtrlEnter };
+export { addFontsToList, charCounter, selectCodeBox, fastSubmit };
 
 // possible config for reference:
 // basicScriptSet({
