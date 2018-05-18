@@ -1,4 +1,5 @@
 // @flow
+import throttle from "lodash/throttle";
 declare var FORUM: Object;
 
 // taken from this tutorial
@@ -85,7 +86,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
     }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  function remakeCodeBoxes() {
     const codeboxNodeList = document.querySelectorAll(".code-box");
     if (codeboxNodeList.length > 0) {
       codeboxNodeList.forEach(node => {
@@ -96,17 +97,22 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
         node.addEventListener("click", codeSelector);
       });
     }
-  });
+  }
+
+  const throttledCodeBoxRemake = throttle(remakeCodeBoxes, 100);
+
+  document.addEventListener("DOMContentLoaded", throttledCodeBoxRemake);
+  window.addEventListener("load", throttledCodeBoxRemake);
 }
 
 export function listenToCodeBox() {
   const codeboxNodeList = document.querySelectorAll(".code-box");
-  function consoleLog(e) {
-    console.log(e);
-  }
+
   if (codeboxNodeList.length > 0) {
     codeboxNodeList.forEach(node => {
-      node.addEventListener("click", (e: MouseEvent) => consoleLog(e));
+      node.addEventListener("click", (e: MouseEvent) => {
+        console.log(e);
+      });
     });
   }
 }
