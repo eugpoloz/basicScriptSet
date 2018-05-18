@@ -51,7 +51,7 @@ async function appendSmilies(smiliesPacks: AppendSmilies) {
       // construct our button
       const buttonEl = document.createElement("a");
       buttonEl.className = "smile-custom-btn";
-      buttonEl.innerText = button_text;
+      buttonEl.Text.data = button_text;
 
       const smiliesHTML = smilies
         .map(
