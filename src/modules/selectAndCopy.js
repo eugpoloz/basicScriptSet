@@ -1,5 +1,4 @@
 // @flow
-import throttle from "lodash/throttle";
 declare var FORUM: Object;
 
 // taken from this tutorial
