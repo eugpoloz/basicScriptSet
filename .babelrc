@@ -7,7 +7,7 @@
       "env",
       {
         "targets": {
-          "browsers": ["last 2 Chrome versions"]
+          "browsers": ["last 2 Chrome versions", "safari >= 9"]
         },
         "useBuiltIns": true
       }
