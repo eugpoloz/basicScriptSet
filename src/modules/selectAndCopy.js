@@ -99,21 +99,10 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
     }
   }
 
-  const throttledCodeBoxRemake = throttle(remakeCodeBoxes, 100);
-
-  document.addEventListener("DOMContentLoaded", throttledCodeBoxRemake);
-  window.addEventListener("load", throttledCodeBoxRemake);
-}
-
-export function listenToCodeBox() {
-  const codeboxNodeList = document.querySelectorAll(".code-box");
-
-  if (codeboxNodeList.length > 0) {
-    codeboxNodeList.forEach(node => {
-      node.addEventListener("click", (e: MouseEvent) => {
-        console.log(e);
-      });
-    });
+  if (document.readyState === "complete") {
+    remakeCodeBoxes();
+  } else {
+    document.addEventListener("DOMContentLoaded", remakeCodeBoxes);
   }
 }
 
