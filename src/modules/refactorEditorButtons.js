@@ -1,19 +1,17 @@
 // @flow
-import { isHelperKey } from "../shared";
-
 // type definitions and global variables
 declare var FORUM: Object;
 declare var bbcode: Function;
 
 export function addCtrlClicks() {
-  function handleClick(e: MouseEvent) {
-    if (e.target instanceof HTMLElement) {
-      const { parentNode } = e.target;
+  function handleClick({ target, ctrlKey, metaKey, altKey }: MouseEvent) {
+    if (target instanceof HTMLElement) {
+      const { parentNode } = target;
       if (parentNode instanceof HTMLElement) {
         const { id } = parentNode;
         const nodeID = id.substr(8);
 
-        if (isHelperKey(e)) {
+        if (ctrlKey || metaKey || altKey) {
           switch (nodeID) {
             case "image":
               bbcode("[img]", "[/img]");
