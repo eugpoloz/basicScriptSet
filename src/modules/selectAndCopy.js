@@ -1,5 +1,4 @@
 // @flow
-import domready from "domready";
 declare var FORUM: Object;
 
 // taken from this tutorial
@@ -100,15 +99,15 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
     }
   }
 
-  domready(function() {
-    remakeCodeBoxes();
-  });
-
-  // if (document.readyState !== "complete") {
-  //   document.addEventListener("DOMContentLoaded", remakeCodeBoxes);
-  // } else {
-  //   remakeCodeBoxes();
-  // }
+  if (typeof FORUM.topic === "object") {
+    if (document.readyState !== "complete") {
+      document.addEventListener("DOMContentLoaded", remakeCodeBoxes);
+    } else {
+      remakeCodeBoxes();
+    }
+  } else {
+    window.addEventListener("load", remakeCodeBoxes);
+  }
 }
 
 // previous script for reference
