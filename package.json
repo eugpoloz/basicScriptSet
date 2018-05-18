@@ -18,8 +18,9 @@
     "webpack": "^4.8.3"
   },
   "scripts": {
-    "build": "webpack",
-    "start": "webpack --watch"
+    "dev-build": "webpack --mode=development",
+    "build": "webpack --mode=production",
+    "start": "webpack --mode=production --watch"
   },
   "devDependencies": {
     "webpack-cli": "^2.1.3"
