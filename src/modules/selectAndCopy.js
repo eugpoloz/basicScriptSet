@@ -37,9 +37,6 @@ type CodeBoxProps = {
 };
 
 export default function selectCodeBoxContents(props: CodeBoxProps) {
-  // if (typeof FORUM.topic === "object" || typeof FORUM.editor === "object") {
-  const codeboxNodeList = document.querySelectorAll(".code-box");
-
   const text = props && props.text ? props.text : "Выделить и скопировать:";
   const textHTML = `<a href="#">${text}</a>`;
   const copiedText =
@@ -89,6 +86,7 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    const codeboxNodeList = document.querySelectorAll(".code-box");
     if (codeboxNodeList.length > 0) {
       codeboxNodeList.forEach(node => {
         const legend = node.querySelector(".legend");
@@ -99,11 +97,10 @@ export default function selectCodeBoxContents(props: CodeBoxProps) {
       });
     }
   });
-  // }
 }
 
 export function listenToCodeBox() {
-  window.addEventListener("load", () => {
+  document.addEventListener("DOMContentLoaded", () => {
     const codeboxNodeList = document.querySelectorAll(".code-box");
     if (codeboxNodeList.length > 0) {
       codeboxNodeList.forEach(node => {
