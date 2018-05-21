@@ -22,6 +22,7 @@ import {
   addCtrlClicks,
   originalUploadedFirst
 } from "./modules/refactorEditorButtons";
+import disableProfiles from "./modules/disableProfiles";
 
 import type { DefaultIcon, DisabledProfiles, FastLogin } from "./commonTypes";
 
@@ -42,7 +43,13 @@ export function bss({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   createFastLoginLinks(fastLogin);
 }
 
-export { addFontsToList, charCounter, selectCodeBox, fastSubmit };
+export {
+  addFontsToList,
+  charCounter,
+  selectCodeBox,
+  fastSubmit,
+  disableProfiles
+};
 
 // possible config for reference:
 // basicScriptSet({
