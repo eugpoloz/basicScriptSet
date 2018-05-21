@@ -22,6 +22,7 @@ import {
   originalUploadedFirst
 } from "./modules/refactorEditorButtons";
 import disableProfiles from "./modules/disableProfiles";
+import clickableGuestNames from "./modules/clickableGuestNames";
 
 import type { DefaultIcon, FastLogin } from "./commonTypes";
 
@@ -45,7 +46,8 @@ export {
   charCounter,
   selectCodeBox,
   fastSubmit,
-  disableProfiles
+  disableProfiles,
+  clickableGuestNames
 };
 
 // possible config for reference:
