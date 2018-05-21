@@ -38,9 +38,9 @@ export function bss({ disabledProfiles, defaultIcon, fastLogin }: Options) {
   originalUploadedFirst();
 
   // calling functions w/ passed props
-  disableProfileEditing(disabledProfiles);
-  setDefaultIcon(defaultIcon);
-  createFastLoginLinks(fastLogin);
+  if (disabledProfiles) disableProfileEditing(disabledProfiles);
+  if (defaultIcon) setDefaultIcon(defaultIcon);
+  if (fastLogin) createFastLoginLinks(fastLogin);
 }
 
 export {
