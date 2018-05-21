@@ -11,7 +11,7 @@ export default function clickableGuestNames() {
         if (!link) {
           const nickname = node.innerText || "";
           if (nickname !== "") {
-            const html = `<li class="pa-author"><span class="acchide">Автор:&nbsp;</span><a href="javascript:to('${nickname}')" rel="nofollow">${nickname}</a></li>`;
+            const html = `<span class="acchide">Автор:&nbsp;</span><a href="javascript:to('${nickname}')" rel="nofollow">${nickname}</a>`;
 
             node.innerHTML = html;
           }
