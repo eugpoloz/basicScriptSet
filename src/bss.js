@@ -13,7 +13,6 @@
 
 import setDefaultIcon from "./customizable/setDefaultIcon";
 import createFastLoginLinks from "./customizable/createFastLoginLinks";
-import disableProfileEditing from "./customizable/disableProfileEditing";
 import addFontsToList from "./modules/addFontsToList";
 import charCounter from "./modules/charCounter";
 import selectCodeBox from "./modules/selectAndCopy";
@@ -24,21 +23,19 @@ import {
 } from "./modules/refactorEditorButtons";
 import disableProfiles from "./modules/disableProfiles";
 
-import type { DefaultIcon, DisabledProfiles, FastLogin } from "./commonTypes";
+import type { DefaultIcon, FastLogin } from "./commonTypes";
 
 type Options = {
-  disabledProfiles: DisabledProfiles,
   defaultIcon: DefaultIcon,
   fastLogin: FastLogin
 };
 
 // basic function
-export function bss({ disabledProfiles, defaultIcon, fastLogin }: Options) {
+export function bss({ defaultIcon, fastLogin }: Options) {
   addCtrlClicks();
   originalUploadedFirst();
 
   // calling functions w/ passed props
-  if (disabledProfiles) disableProfileEditing(disabledProfiles);
   if (defaultIcon) setDefaultIcon(defaultIcon);
   if (fastLogin) createFastLoginLinks(fastLogin);
 }
