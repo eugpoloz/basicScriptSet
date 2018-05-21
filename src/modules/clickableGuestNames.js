@@ -1,22 +1,36 @@
 // @flow
 declare var FORUM: Object;
 
-export default function clickableGuestNames() {
-  if (typeof FORUM.topic === "object") {
-    const profileNodes = document.querySelectorAll(".post-author .pa-author");
+function transformNodes() {
+  const profileNodes = document.querySelectorAll(".post-author .pa-author");
 
-    if (profileNodes.length > 0) {
-      profileNodes.forEach(node => {
-        const link = node.querySelector("a");
-        if (!link) {
-          const nickname = node.innerText || "";
-          if (nickname !== "") {
-            const html = `<span class="acchide">Автор:&nbsp;</span><a href="javascript:to('${nickname}')" rel="nofollow">${nickname}</a>`;
+  if (profileNodes.length > 0) {
+    profileNodes.forEach(node => {
+      const link = node.querySelector("a");
+      if (!link) {
+        const nickname = node.innerText || "";
+        if (nickname !== "") {
+          const html = `<span class="acchide">Автор:&nbsp;</span><a href="javascript:to('${nickname}')" rel="nofollow">${nickname}</a>`;
 
-            node.innerHTML = html;
-          }
+          node.innerHTML = html;
         }
-      });
+      }
+    });
+  }
+}
+
+export default function clickableGuestNames(forum_id?: number) {
+  if (typeof FORUM.topic === "object") {
+    const current_forum = parseInt(FORUM.topic.forum_id, 10);
+
+    if (forum_id) {
+      if (current_forum === forum_id) {
+        transformNodes();
+      }
+
+      return;
+    } else {
+      return transformNodes();
     }
   }
 }
