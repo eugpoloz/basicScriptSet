@@ -4,7 +4,7 @@ import { insertAfter } from "../shared";
 declare var FORUM: Object;
 
 export default function fastSubmit() {
-  if (typeof FORUM.editor === "object") {
+  if (typeof FORUM.editor === "object" && typeof FORUM.topic === "object") {
     const textarea = document.querySelector("#main-reply");
     const submitInput = document.querySelector(`input[name="submit"]`);
     const previewInput = document.querySelector(`input[name="preview"]`);
