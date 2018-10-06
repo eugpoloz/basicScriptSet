@@ -21,21 +21,18 @@ function createCreditHTML({ name, author, url, contacts = [] }: Credit) {
   let contactsHTML = "";
 
   if (contacts.length > 0) {
-    const contactLinks = contacts
+    contactsHTML = contacts
       .map(
         ({ url, title }: Contact) =>
           `<a href="${url}" target="_blank" title="${title}">${title}</a>`
       )
       .join(" | ");
-    contactsHTML = `<br/><p><strong>Контакты:</strong> ${contactLinks}</p>`;
   }
 
   return `
-    <li>
-      <strong><a href="${url}" target="_blank" title="${name}">${name}</a></strong>
-      <br/>
-      <span>© ${author}</span>
-      ${contactsHTML}
+    <li style="line-height: 1.2;">
+      <p><strong><a href="${url}" target="_blank" title="${name}">${name}</a></strong></p>
+      <p>© ${author}${contactsHTML ? ` (${contactsHTML})` : ""}</p>
     </li>
   `;
 }
@@ -83,8 +80,16 @@ export default function addScriptCredits(props: Props) {
         .jGrowl-notification.jGrowl-credits {
           width: auto;
         }
-        .jGrowl-notification.jGrowl-credits li:not(:last-of-type) {
-          margin-bottom: 15px;
+        .jGrowl-notification.jGrowl-credits li {
+          border-top: 1px solid rgba(255,255,255,.25);
+        }
+        .jGrowl-notification.jGrowl-credits a {
+          color: #fff;
+        }
+        .jGrowl-notification.jGrowl-credits ul a:hover,
+        .jGrowl-notification.jGrowl-credits ul a:focus,
+        .jGrowl-notification.jGrowl-credits ul a:active {
+          text-decoration: none;
         }
       </style>
       <a href="#" id="script-credit-trigger">
@@ -93,7 +98,7 @@ export default function addScriptCredits(props: Props) {
 
     if (container instanceof HTMLElement) {
       container.insertAdjacentHTML(
-        "beforebegin",
+        "afterbegin",
         `<span>${triggerHTML} | </span>`
       );
     } else {
@@ -108,9 +113,10 @@ export default function addScriptCredits(props: Props) {
 
     if (triggerEl instanceof HTMLElement) {
       triggerEl.addEventListener("click", () =>
-        $.jGrowl(`<ul>${creditsHTML}</ul>`, {
+        $.jGrowl(`<ul style="padding-left: 15px;">${creditsHTML}</ul>`, {
           header: "<strong>Скрипты и их авторы</strong>",
           theme: "jGrowl-credits",
+          position: "bottom-right",
           sticky: true
         })
       );
