@@ -1,35 +1,34 @@
 // @flow
-// type definitions and global variables
 declare var FORUM: Object;
 declare var bbcode: Function;
 
-export function addCtrlClicks() {
-  function handleClick({ target, ctrlKey, metaKey, altKey }: MouseEvent) {
-    if (target instanceof HTMLElement) {
-      const { parentNode } = target;
-      if (parentNode instanceof HTMLElement) {
-        const { id } = parentNode;
-        const nodeID = id.substr(7);
+function handleClick({ target, ctrlKey, metaKey, altKey }: MouseEvent) {
+  if (target instanceof HTMLElement) {
+    const { parentNode } = target;
+    if (parentNode instanceof HTMLElement) {
+      const { id } = parentNode;
+      const nodeID = id.substr(7);
 
-        if (ctrlKey || metaKey || altKey) {
-          switch (nodeID) {
-            case "image":
-              bbcode("[img]", "[/img]");
-              break;
-            case "link":
-              bbcode('[url=""]', "[/url]");
-              break;
-            default:
-              bbcode(`[${nodeID}]`, `[/${nodeID}]`);
-              break;
-          }
-        } else {
-          FORUM.get("editor." + nodeID + ".onclick()");
+      if (ctrlKey || metaKey || altKey) {
+        switch (nodeID) {
+          case "image":
+            bbcode("[img]", "[/img]");
+            break;
+          case "link":
+            bbcode('[url=""]', "[/url]");
+            break;
+          default:
+            bbcode(`[${nodeID}]`, `[/${nodeID}]`);
+            break;
         }
+      } else {
+        FORUM.get("editor." + nodeID + ".onclick()");
       }
     }
   }
+}
 
+export function addCtrlClicks() {
   if (typeof FORUM.editor === "object") {
     const nodeList = document.querySelectorAll(
       "#button-link, #button-hide, #button-image, #button-spoiler, #button-video"
