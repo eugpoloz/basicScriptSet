@@ -11,20 +11,20 @@
   — http://urchoice.rolka.su/profile.php?id=4789
 */
 
-import additionalFonts from "./textarea/addFontsToList";
-import charCounter from "./textarea/charCounter";
-import fastSubmit from "./textarea/fastSubmit";
+import addFontsToList from "./textarea/addFontsToList";
+import countTextareaCharacters from "./textarea/charCounter";
+import submitOnHotkey from "./textarea/fastSubmit";
 import {
   addCtrlClicks,
   originalUploadedFirst
 } from "./textarea/refactorEditorButtons";
 
-import defaultIcon from "./topic/setDefaultIcon";
-import selectableCodeBox from "./topic/selectAndCopy";
-import clickableGuestNames from "./topic/makeGuestNamesClickable";
+import setDefaultIcon from "./topic/setDefaultIcon";
+import selectCodeBox from "./topic/selectAndCopy";
+import addGuestNameClicks from "./topic/makeGuestNamesClickable";
 
-import fastLoginLinks from "./various/createFastLoginLinks";
-import disabledProfiles from "./various/disableProfiles";
+import createFastLoginLinks from "./various/createFastLoginLinks";
+import disableProfiles from "./various/disableProfiles";
 
 // basic function
 export function enhanceTextarea() {
@@ -34,14 +34,14 @@ export function enhanceTextarea() {
 
 // module exports
 export {
-  defaultIcon,
-  fastLoginLinks,
-  additionalFonts,
-  charCounter,
-  selectableCodeBox,
-  fastSubmit,
-  disabledProfiles,
-  clickableGuestNames
+  setDefaultIcon,
+  createFastLoginLinks,
+  addFontsToList,
+  countTextareaCharacters,
+  selectCodeBox,
+  submitOnHotkey,
+  disableProfiles,
+  addGuestNameClicks
 };
 
 // possible config for reference:
