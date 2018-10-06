@@ -22,7 +22,6 @@ export default function addScriptCredits({
   text = "Скрипты форума",
   credits
 }: Props) {
-
   const about = document.getElementById("pun-about");
 
   if (about instanceof HTMLElement) {
@@ -42,3 +41,22 @@ export default function addScriptCredits({
     }
   }
 }
+
+// const defaultCredits = [
+//   {
+//     name: "basicScriptSet",
+//     author: "грандоченька смерти",
+//     link: "https://github.com/eugpoloz/basicScriptSet",
+//     contacts: [
+//       {
+//         title: "LYL",
+//         url: "http://urchoice.rolka.su/messages.php?action=new&uid=4789"
+//       },
+//       {
+//         title: "github",
+//         url: "https://github.com/eugpoloz"
+//       }
+//     ]
+//   }
+// ];
+// const jointCredits = defaultCredits.concat(credits);
