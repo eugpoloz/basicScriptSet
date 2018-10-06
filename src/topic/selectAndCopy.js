@@ -1,4 +1,6 @@
 // @flow
+import idx from "idx";
+
 declare var FORUM: Object;
 
 // taken from this tutorial
@@ -27,6 +29,7 @@ function copySelectionText() {
 function changeText(el?: HTMLElement, innerHTML: string) {
   if (el) {
     el.innerHTML = innerHTML;
+    return;
   }
 }
 
@@ -37,12 +40,10 @@ type Props = {
 };
 
 export default function selectableCodeBox(props: Props) {
-  const text = props && props.text ? props.text : "Выделить и скопировать:";
+  const text = idx(props, props => props.text) || "Выделить и скопировать:";
   const textHTML = `<a href="#">${text}</a>`;
   const copiedText =
-    props && props.copiedText
-      ? props.copiedText
-      : "Скопировано в буфер обмена!";
+    idx(props, props => props.copiedText) || "Скопировано в буфер обмена!";
 
   function codeSelector(e: MouseEvent) {
     e.preventDefault();
@@ -54,31 +55,33 @@ export default function selectableCodeBox(props: Props) {
     ) {
       const nearestParent = target.closest(".code-box");
 
-      const elToSelect =
-        target.tagName === "PRE"
-          ? target
-          : nearestParent && nearestParent.querySelector("pre");
-      const elLegend = nearestParent && nearestParent.querySelector(".legend");
+      if (nearestParent instanceof HTMLElement) {
+        const elToSelect =
+          target.tagName === "PRE"
+            ? target
+            : nearestParent.querySelector("pre");
+        const elLegend = nearestParent.querySelector(".legend");
 
-      if (elToSelect instanceof HTMLPreElement) {
-        selectElementText(elToSelect);
-        const copysuccess = copySelectionText();
-        if (copysuccess === true) {
-          // let's show user that our stuff is copied to clipboard
-          if (elLegend) {
-            changeText(elLegend, copiedText);
-            let timer;
+        if (elToSelect instanceof HTMLPreElement) {
+          selectElementText(elToSelect);
+          const copysuccess = copySelectionText();
+          if (copysuccess === true) {
+            // let's show user that our stuff is copied to clipboard
+            if (elLegend) {
+              changeText(elLegend, copiedText);
+              let timer;
 
-            function revertTextBack() {
-              window.clearTimeout(timer);
-              timer = window.setTimeout(
-                () => changeText(elLegend, textHTML),
-                // in ms
-                3000
-              );
+              function revertTextBack() {
+                window.clearTimeout(timer);
+                timer = window.setTimeout(
+                  () => changeText(elLegend, textHTML),
+                  // in ms
+                  3000
+                );
+              }
+
+              revertTextBack();
             }
-
-            revertTextBack();
           }
         }
       }
@@ -104,26 +107,3 @@ export default function selectableCodeBox(props: Props) {
     remakeCodeBoxes();
   }
 }
-
-// previous script for reference
-// $(function() {
-//    /* ВЫДЕЛЕНИЕ КОДА ПО КЛИКУ, с сайта max22.ru */
-//    $('.code-box').find('pre').click(function() {
-//       var rng, sel;
-//       if (document.createRange) {
-//          rng = document.createRange();
-//          rng.selectNode(this);
-//          sel = window.getSelection();
-//          var strSel = '' + sel;
-//          if (!strSel.length) {
-//             sel.removeAllRanges();
-//             sel.addRange(rng);
-//          }
-//       } else {
-//          var rng = document.body.createTextRange();
-//          rng.moveToElementText(this);
-//          rng.select();
-//       }
-//    });
-//    $('.code-box').find('.legend').html('Кликните по коду ниже, чтобы его выделить:');
-// }); /* Конец скрипта */
