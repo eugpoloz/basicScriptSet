@@ -25,6 +25,7 @@ import addGuestNameClicks from "./topic/makeGuestNamesClickable";
 
 import createFastLoginLinks from "./various/createFastLoginLinks";
 import disableProfiles from "./various/disableProfiles";
+import addScriptCredits from "./various/addScriptCredits";
 
 // basic function
 export function enhanceTextarea() {
@@ -41,7 +42,8 @@ export {
   selectCodeBox,
   submitOnHotkey,
   disableProfiles,
-  addGuestNameClicks
+  addGuestNameClicks,
+  addScriptCredits
 };
 
 // possible config for reference:
