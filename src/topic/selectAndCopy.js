@@ -36,7 +36,7 @@ type Props = {
   copiedText?: string
 };
 
-export default function selectCodeBox(props: Props) {
+export default function selectableCodeBox(props: Props) {
   const text = props && props.text ? props.text : "Выделить и скопировать:";
   const textHTML = `<a href="#">${text}</a>`;
   const copiedText =

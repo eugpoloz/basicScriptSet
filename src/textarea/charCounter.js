@@ -4,7 +4,7 @@ import { insertAfter } from "../common";
 
 declare var FORUM: Object;
 
-export default function charCounter(counterText?: string = "Символов в сообщении") {
+export default function countCharacters(counterText?: string = "Символов в сообщении") {
   const html = `<div id="charcounter">${counterText}: <span class="charcount">0</span></div>`;
 
   if (typeof FORUM.editor === "object") {

@@ -3,7 +3,7 @@ import { insertAfter } from "../common";
 
 declare var FORUM: Object;
 
-export default function fastSubmit() {
+export default function submitPostOnHotkey() {
   if (typeof FORUM.editor === "object" && typeof FORUM.topic === "object") {
     const textarea = document.querySelector("#main-reply");
     const submitInput = document.querySelector(`input[name="submit"]`);
