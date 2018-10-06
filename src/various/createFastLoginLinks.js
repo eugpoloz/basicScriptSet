@@ -49,13 +49,14 @@ export default function createFastLoginLinks({
       });
 
       const afterEl = document.getElementById(after);
-      afterEl && afterEl.insertAdjacentHTML("afterend", loginMap.join(""));
+      if (afterEl instanceof HTMLElement) {
+        afterEl.insertAdjacentHTML("afterend", loginMap.join(""));
+      }
 
       document
         .querySelectorAll("a.js_login")
-        .forEach(
-          (node: HTMLElement) =>
-            node && node.addEventListener("click", handleFastLoginClick)
+        .forEach((node: HTMLElement) =>
+          node.addEventListener("click", handleFastLoginClick)
         );
     }
   }
