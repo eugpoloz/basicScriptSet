@@ -30,9 +30,9 @@ function createCreditHTML({ name, author, url, contacts = [] }: Credit) {
   }
 
   return `
-    <li style="line-height: 1.2;">
-      <p><strong><a href="${url}" target="_blank" title="${name}">${name}</a></strong></p>
-      <p>© ${author}${contactsHTML ? ` (${contactsHTML})` : ""}</p>
+    <li style="line-height: inherit;">
+      <strong><a href="${url}" target="_blank" title="${name}">${name}</a></strong></>
+      <span>© ${author}${contactsHTML ? ` (${contactsHTML})` : ""}</span>
     </li>
   `;
 }
@@ -80,8 +80,8 @@ export default function addScriptCredits(props: Props) {
         .jGrowl-notification.jGrowl-credits {
           width: auto;
         }
-        .jGrowl-notification.jGrowl-credits li {
-          border-top: 1px solid rgba(255,255,255,.25);
+        .jGrowl-notification.jGrowl-credits li:not(:last-of-type) {
+          border-bottom: 1px solid rgba(255,255,255,.25);
         }
         .jGrowl-notification.jGrowl-credits a {
           color: #fff;
@@ -113,12 +113,17 @@ export default function addScriptCredits(props: Props) {
 
     if (triggerEl instanceof HTMLElement) {
       triggerEl.addEventListener("click", () =>
-        $.jGrowl(`<ul style="padding-left: 15px;">${creditsHTML}</ul>`, {
-          header: "<strong>Скрипты и их авторы</strong>",
-          theme: "jGrowl-credits",
-          position: "bottom-right",
-          sticky: true
-        })
+        $.jGrowl(
+          `<ul style="padding-left: 15px; border-top: 1px solid rgba(255,255,255,.25); line-height: 1.5;">
+            ${creditsHTML}
+          </ul>`,
+          {
+            header: "<strong>Скрипты и их авторы</strong>",
+            theme: "jGrowl-credits",
+            position: "bottom-right",
+            sticky: true
+          }
+        )
       );
     }
   }
