@@ -11,7 +11,7 @@
   — http://urchoice.rolka.su/profile.php?id=4789
 */
 
-import addFontsToList from "./textarea/addFontsToList";
+import additionalFonts from "./textarea/addFontsToList";
 import charCounter from "./textarea/charCounter";
 import fastSubmit from "./textarea/fastSubmit";
 import {
@@ -19,12 +19,12 @@ import {
   originalUploadedFirst
 } from "./textarea/refactorEditorButtons";
 
-import setDefaultIcon from "./topic/setDefaultIcon";
-import selectCodeBox from "./topic/selectAndCopy";
-import clickableGuestNames from "./topic/clickableGuestNames";
+import defaultIcon from "./topic/setDefaultIcon";
+import selectableCodeBox from "./topic/selectAndCopy";
+import clickableGuestNames from "./topic/makeGuestNamesClickable";
 
-import createFastLoginLinks from "./various/createFastLoginLinks";
-import disableProfiles from "./various/disableProfiles";
+import fastLoginLinks from "./various/createFastLoginLinks";
+import disabledProfiles from "./various/disableProfiles";
 
 // basic function
 export function enhanceTextarea() {
@@ -34,13 +34,13 @@ export function enhanceTextarea() {
 
 // module exports
 export {
-  setDefaultIcon,
-  createFastLoginLinks,
-  addFontsToList,
+  defaultIcon,
+  fastLoginLinks,
+  additionalFonts,
   charCounter,
-  selectCodeBox,
+  selectableCodeBox,
   fastSubmit,
-  disableProfiles,
+  disabledProfiles,
   clickableGuestNames
 };
 
