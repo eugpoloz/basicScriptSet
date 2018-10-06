@@ -1,8 +1,9 @@
 // @flow
 export type DefaultIcon = {
-  icon?: string,
-  [position: "after" | "before"]: string | null
-} | null;
+  icon: string,
+  after?: string | null,
+  before?: string | null
+};
 
 export type FastLogin = {
   after?: string,

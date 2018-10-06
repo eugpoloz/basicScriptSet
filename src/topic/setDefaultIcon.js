@@ -3,22 +3,11 @@ declare var FORUM: Object;
 
 import type { DefaultIcon } from "../commonTypes";
 
-// various helper functions
-export function setDefaultIcon(defaultIcon: DefaultIcon = null) {
-  if (defaultIcon === null) {
-    return;
-  }
-
+function createDefaultIcon(props: DefaultIcon) {
   // мы предполагаем, что если не передается вообще никаких параметров,
   // то вставлять аватарку надо всегда ПОСЛЕ статуса .pa-title
-  const { icon = "", after = ".pa-title", before = null } = defaultIcon;
+  const { icon, before = null, after = ".pa-title" } = props;
 
-  // если нет урла, то все понятно
-  if (icon === "") {
-    return;
-  }
-
-  // если есть урл, см. строку 136 и комментарий
   if (typeof FORUM.topic === "object") {
     document.querySelectorAll(".post-author ul").forEach(author => {
       if (author.querySelector(".pa-avatar")) return;
@@ -29,17 +18,38 @@ export function setDefaultIcon(defaultIcon: DefaultIcon = null) {
       // сначала мы чекаем, есть ли у нас before, и отдаем его
       if (before) {
         const beforeEl = author.querySelector(before);
-        return beforeEl && beforeEl.insertAdjacentHTML("beforebegin", html);
+
+        if (beforeEl instanceof HTMLElement) {
+          return beforeEl.insertAdjacentHTML("beforebegin", html);
+        }
       }
 
       // потом мы чекаем, есть ли у нас after;
       // если и его нет, то подставится наш дефолтный ПОСЛЕ .pa-title
       if (after) {
         const afterEl = author.querySelector(after);
-        return afterEl && afterEl.insertAdjacentHTML("afterend", html);
+
+        if (afterEl instanceof HTMLElement) {
+          return afterEl.insertAdjacentHTML("afterend", html);
+        }
       }
     });
   }
 }
 
-export default setDefaultIcon;
+type SetDefaultIcon = null | string | DefaultIcon;
+
+export default function setDefaultIcon(props: SetDefaultIcon) {
+  // если нет параметра
+  if (props == null) {
+    return;
+  }
+
+  // если урл-строка
+  if (typeof props === "string") {
+    return createDefaultIcon({ icon: props });
+  }
+
+  // если объект
+  return createDefaultIcon(props);
+}
