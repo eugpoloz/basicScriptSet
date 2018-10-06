@@ -7,7 +7,6 @@ export default function submitPostOnHotkey() {
   if (typeof FORUM.editor === "object" && typeof FORUM.topic === "object") {
     const textarea = document.querySelector("#main-reply");
     const submitInput = document.querySelector(`input[name="submit"]`);
-    const previewInput = document.querySelector(`input[name="preview"]`);
 
     if (textarea instanceof HTMLTextAreaElement) {
       function checkWhatsClicked({ keyCode, ctrlKey, metaKey }: KeyboardEvent) {
@@ -16,9 +15,11 @@ export default function submitPostOnHotkey() {
           textarea.value = "";
         }
       }
+
       textarea.addEventListener("keydown", checkWhatsClicked);
     }
 
+    const previewInput = document.querySelector(`input[name="preview"]`);
     const html = `<div id="fastsubmit">Для быстрой отправки нажмите <strong>Ctrl+Enter</strong> (<strong>Cmd+Enter</strong>).</div>`;
 
     if (previewInput) {
