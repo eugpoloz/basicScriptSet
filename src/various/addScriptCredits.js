@@ -128,14 +128,16 @@ export default function addScriptCredits(props: Props) {
     const creditsHTML = jointCredits.map(createCreditHTML).join("");
 
     if (triggerEl instanceof HTMLElement) {
-      triggerEl.addEventListener("click", () =>
-        $.jGrowl(`<ul>${creditsHTML}</ul>`, {
+      triggerEl.addEventListener("click", (e: MouseEvent) => {
+        e.preventDefault();
+
+        return $.jGrowl(`<ul>${creditsHTML}</ul>`, {
           header: `<strong style="line-height: 1.5;">${text}</strong>`,
           theme: "jGrowl-credits",
           position: "bottom-right",
           sticky: true
-        })
-      );
+        });
+      });
     }
   }
 }
