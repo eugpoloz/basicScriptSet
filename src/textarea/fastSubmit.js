@@ -1,5 +1,5 @@
 // @flow
-import { insertAfter } from "../shared";
+import { insertAfter } from "../common";
 
 declare var FORUM: Object;
 

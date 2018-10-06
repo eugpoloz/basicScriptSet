@@ -11,18 +11,18 @@
   — http://urchoice.rolka.su/profile.php?id=4789
 */
 
-import setDefaultIcon from "./customizable/setDefaultIcon";
-import createFastLoginLinks from "./customizable/createFastLoginLinks";
-import addFontsToList from "./modules/addFontsToList";
-import charCounter from "./modules/charCounter";
-import selectCodeBox from "./modules/selectAndCopy";
-import fastSubmit from "./modules/fastSubmit";
+import setDefaultIcon from "./topic/setDefaultIcon";
+import createFastLoginLinks from "./various/createFastLoginLinks";
+import addFontsToList from "./textarea/addFontsToList";
+import charCounter from "./textarea/charCounter";
+import selectCodeBox from "./topic/selectAndCopy";
+import fastSubmit from "./textarea/fastSubmit";
 import {
   addCtrlClicks,
   originalUploadedFirst
-} from "./modules/refactorEditorButtons";
-import disableProfiles from "./modules/disableProfiles";
-import clickableGuestNames from "./modules/clickableGuestNames";
+} from "./textarea/refactorEditorButtons";
+import disableProfiles from "./various/disableProfiles";
+import clickableGuestNames from "./topic/clickableGuestNames";
 
 import type { DefaultIcon, FastLogin } from "./commonTypes";
 
