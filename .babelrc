@@ -12,19 +12,7 @@
         "useBuiltIns": true
       }
     ],
-    [
-      "minify",
-      {
-        "mangle": {
-          "exclude": [
-            "basicScriptSet",
-            "profilesToDisable",
-            "defaultIcon",
-            "fastLogin",
-            "appendSmilies"
-          ]
-        }
-      }
-    ]
-  ]
+    ["minify"]
+  ],
+  "plugins": ["babel-plugin-idx"]
 }
