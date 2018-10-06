@@ -50,33 +50,13 @@ export type CreditsProps =
       credits: Array<Credit>
     };
 
-export default function addScriptCredits(props: CreditsProps) {
-  let text =
-    (!Array.isArray(props) && idx(props, props => props.text)) ||
-    "Скрипты форума";
-  let credits = Array.isArray(props)
-    ? props
-    : idx(props, props => props.credits) || [];
-
-  const defaultCredits = [
-    {
-      name: "basicScriptSet",
-      author: "грандоченька смерти",
-      url: "https://github.com/eugpoloz/basicScriptSet",
-      contacts: [
-        {
-          title: "lyl",
-          url: "http://urchoice.rolka.su/messages.php?action=new&uid=4789"
-        },
-        {
-          title: "github",
-          url: "https://github.com/eugpoloz"
-        }
-      ]
-    }
-  ];
-  const jointCredits = defaultCredits.concat(credits);
-
+function createScriptCredits({
+  text,
+  credits
+}: {
+  text: string,
+  credits: Array<Credit>
+}) {
   const about = document.getElementById("pun-about");
 
   if (about instanceof HTMLElement) {
@@ -125,7 +105,7 @@ export default function addScriptCredits(props: CreditsProps) {
     }
 
     const triggerEl = document.getElementById("script-credit-trigger");
-    const creditsHTML = jointCredits.map(createCreditHTML).join("");
+    const creditsHTML = credits.map(createCreditHTML).join("");
 
     if (triggerEl instanceof HTMLElement) {
       triggerEl.addEventListener("click", (e: MouseEvent) => {
@@ -140,4 +120,36 @@ export default function addScriptCredits(props: CreditsProps) {
       });
     }
   }
+}
+
+export default function addScriptCredits(props: CreditsProps) {
+  let text =
+    (!Array.isArray(props) && idx(props, props => props.text)) ||
+    "Скрипты форума";
+  let credits = Array.isArray(props)
+    ? props
+    : idx(props, props => props.credits) || [];
+
+  const defaultCredits = [
+    {
+      name: "basicScriptSet",
+      author: "eugpoloz (грандоченька смерти)",
+      url: "https://github.com/eugpoloz/basicScriptSet",
+      contacts: [
+        {
+          title: "lyl",
+          url: "http://urchoice.rolka.su/messages.php?action=new&uid=4789"
+        },
+        {
+          title: "github",
+          url: "https://github.com/eugpoloz"
+        }
+      ]
+    }
+  ];
+
+  return createScriptCredits({
+    text,
+    credits: [...defaultCredits, ...credits]
+  });
 }
