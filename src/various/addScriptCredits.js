@@ -43,14 +43,14 @@ function createCreditHTML({ name, author, url, contacts = [] }: Credit) {
   `;
 }
 
-type Props =
+export type CreditsProps =
   | Array<Credit>
   | {
       text?: string,
       credits: Array<Credit>
     };
 
-export default function addScriptCredits(props: Props) {
+export default function addScriptCredits(props: CreditsProps) {
   let text =
     (!Array.isArray(props) && idx(props, props => props.text)) ||
     "Скрипты форума";
