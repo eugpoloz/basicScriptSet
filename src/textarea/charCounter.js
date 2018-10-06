@@ -4,12 +4,8 @@ import { insertAfter } from "../common";
 
 declare var FORUM: Object;
 
-// type Props = {
-//   counterText?: string
-// };
-
-export default function charCounter() {
-  const html = `<div id="charcounter">Символов в сообщении: <span class="charcount">0</span></div>`;
+export default function charCounter(counterText?: string = "Символов в сообщении") {
+  const html = `<div id="charcounter">${counterText}: <span class="charcount">0</span></div>`;
 
   if (typeof FORUM.editor === "object") {
     const textarea = document.getElementById("main-reply");
