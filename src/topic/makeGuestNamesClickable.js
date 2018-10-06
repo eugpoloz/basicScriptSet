@@ -21,7 +21,7 @@ function transformNodes() {
 
 export default function clickableGuestNames(forum_id?: number) {
   if (typeof FORUM.topic === "object") {
-    const current_forum = parseInt(FORUM.topic.forum_id, 10);
+    const current_forum = Number(FORUM.topic.forum_id);
 
     if (forum_id) {
       if (current_forum === forum_id) {
