@@ -13,13 +13,32 @@ type Credit = {
   }>
 };
 
-type Props = Array<Credit>;
+type Props = {
+  text?: string,
+  credits: Array<Credit>
+};
 
-export default function addScriptCredits(props: Props) {
+export default function addScriptCredits({
+  text = "Скрипты форума",
+  credits
+}: Props) {
+
   const about = document.getElementById("pun-about");
 
   if (about instanceof HTMLElement) {
-    const html = `<p class="container"><span id="script-credit-trigger" style="cursor: pointer;">Скрипты форума</span></p>`;
-    about.insertAdjacentHTML("beforeend", html);
+    const container = about.querySelector("p.container");
+    const triggerHTML = `<a href="#" id="script-credit-trigger">${text}</a>`;
+
+    if (container instanceof HTMLElement) {
+      container.insertAdjacentHTML(
+        "beforebegin",
+        `<span>${triggerHTML} | </span>`
+      );
+    } else {
+      about.insertAdjacentHTML(
+        "beforeend",
+        `<p class="container"><span>${triggerHTML}</span></p>`
+      );
+    }
   }
 }
