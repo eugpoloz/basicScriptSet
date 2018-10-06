@@ -86,6 +86,10 @@ export default function addScriptCredits(props: Props) {
         .jGrowl-notification.jGrowl-credits {
           width: auto;
         }
+        .jGrowl-notification.jGrowl-credits .jGrowl-header {
+          position: relative;
+          z-index: 2;
+        }
         .jGrowl-notification.jGrowl-credits li:not(:last-of-type) {
           border-bottom: 1px solid rgba(255,255,255,.25);
         }
