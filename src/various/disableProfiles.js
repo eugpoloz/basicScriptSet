@@ -17,7 +17,7 @@ export default function disableProfiles({
     if (typeof profile === "object") {
       profile.style.display = "none";
 
-      // переписываем на Set() и чеким наличие
+      // переписываем на Set() и чекаем наличие
       const profilesSet = new Set(profiles);
 
       if (profilesSet.has(UserID)) {
