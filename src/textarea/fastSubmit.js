@@ -9,8 +9,8 @@ export default function submitPostOnHotkey() {
     const submitInput = document.querySelector(`input[name="submit"]`);
 
     if (textarea instanceof HTMLTextAreaElement) {
-      function checkWhatsClicked({ keyCode, ctrlKey, metaKey }: KeyboardEvent) {
-        if (keyCode === 13 && (ctrlKey || metaKey)) {
+      function checkWhatsClicked({ key, ctrlKey, metaKey }: KeyboardEvent) {
+        if (key === "Enter" && (ctrlKey || metaKey)) {
           submitInput && submitInput.click();
           textarea.value = "";
         }
