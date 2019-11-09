@@ -1,6 +1,6 @@
 {
-  "name": "basicScriptSet",
-  "version": "0.1.1",
+  "name": "basic-script-set",
+  "version": "0.1.2",
   "license": "MIT",
   "main": "docs/bss.js",
   "dependencies": {
