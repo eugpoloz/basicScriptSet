@@ -14,6 +14,8 @@
 import addFontsToList from "./textarea/addFontsToList";
 import countTextareaCharacters from "./textarea/charCounter";
 import submitOnHotkey from "./textarea/fastSubmit";
+import restoreLatestPost from "./textarea/restoreLatestPost";
+
 import {
   addCtrlClicks,
   originalUploadedFirst
@@ -26,12 +28,17 @@ import addGuestNameClicks from "./topic/makeGuestNamesClickable";
 import createFastLoginLinks from "./various/createFastLoginLinks";
 import disableProfiles from "./various/disableProfiles";
 import addScriptCredits from "./various/addScriptCredits";
+import fixRusffReputationIssue from "./various/fixRusffReputation";
 
 // basic function
 export function enhanceTextarea() {
   addCtrlClicks();
   originalUploadedFirst();
 }
+
+// run by default
+fixRusffReputationIssue();
+restoreLatestPost();
 
 // module exports
 export {
