@@ -1,6 +1,4 @@
 // @flow
-import idx from "idx";
-
 declare var $: {
   jGrowl: Function
 };

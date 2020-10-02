@@ -1,5 +1,4 @@
 // @flow
-import idx from "idx";
 
 declare var FORUM: Object;
 type HTMLBodyElementIE8 = HTMLBodyElement & {
@@ -59,10 +58,20 @@ type Props = {
 };
 
 export default function selectableCodeBox(props: Props) {
-  const text = idx(props, props => props.text) || "Выделить и скопировать:";
+  let text = "Выделить и скопировать:";
+  let copiedText = "Скопировано в буфер обмена!";
+
+  if (props) {
+    if (props.text) {
+      text = props.text;
+    }
+
+    if (props.copiedText) {
+      copiedText = props.copiedText;
+    }
+  }
+
   const textHTML = `<a href="#">${text}</a>`;
-  const copiedText =
-    idx(props, props => props.copiedText) || "Скопировано в буфер обмена!";
 
   function codeSelector(e: MouseEvent) {
     e.preventDefault();
@@ -110,7 +119,7 @@ export default function selectableCodeBox(props: Props) {
   function remakeCodeBoxes() {
     const codeboxNodeList = document.querySelectorAll(".code-box");
     if (codeboxNodeList.length > 0) {
-      codeboxNodeList.forEach(node => {
+      codeboxNodeList.forEach((node) => {
         const legend = node.querySelector(".legend");
         if (legend) {
           changeText(legend, textHTML);
