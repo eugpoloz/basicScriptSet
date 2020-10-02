@@ -35,7 +35,7 @@ export function addCtrlClicks() {
     );
 
     if (nodeList) {
-      nodeList.forEach(node => {
+      nodeList.forEach((node) => {
         const img = node.querySelector("img");
         if (img) {
           img.removeAttribute("onclick");
@@ -48,7 +48,7 @@ export function addCtrlClicks() {
 
 // сначала оригинал загруженного изображения
 // loaded img original first
-export function originalUploadedFirst() {
+export function originalUploadedFirst(): void {
   if (typeof FORUM.editor === "object") {
     const insertFormat = document.getElementById("image-insert-format");
 
@@ -60,7 +60,8 @@ export function originalUploadedFirst() {
     </select>`;
 
     if (insertFormat) {
-      return (insertFormat.innerHTML = html);
+      insertFormat.innerHTML = html;
+      return;
     }
   }
 }

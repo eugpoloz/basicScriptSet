@@ -5,7 +5,7 @@ function transformNodes() {
   const profileNodes = document.querySelectorAll(".post-author .pa-author");
 
   if (profileNodes.length > 0) {
-    profileNodes.forEach(node => {
+    profileNodes.forEach((node) => {
       const link = node.querySelector("a");
       if (!link) {
         const nickname = node.innerText || "";
@@ -19,7 +19,7 @@ function transformNodes() {
   }
 }
 
-export default function clickableGuestNames(forum_id?: number) {
+export default function clickableGuestNames(forum_id?: number): void {
   if (typeof FORUM.topic === "object") {
     const current_forum = Number(FORUM.topic.forum_id);
 

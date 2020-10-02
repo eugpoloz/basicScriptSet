@@ -33,7 +33,7 @@ export default function createFastLoginLinks({
         const data = fetch(
           `${window.location.origin}/login.php?action=in`,
           fetchObject
-        ).then(data => {
+        ).then((data) => {
           if (data.status === 200) {
             window.location.reload();
           }

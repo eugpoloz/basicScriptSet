@@ -3,13 +3,13 @@ declare var FORUM: Object;
 
 import type { DefaultIcon } from "../commonTypes";
 
-function createDefaultIcon(props: DefaultIcon) {
+function createDefaultIcon(props: DefaultIcon): void {
   // мы предполагаем, что если не передается вообще никаких параметров,
   // то вставлять аватарку надо всегда ПОСЛЕ статуса .pa-title
   const { icon, before = null, after = ".pa-title" } = props;
 
   if (typeof FORUM.topic === "object") {
-    document.querySelectorAll(".post-author ul").forEach(author => {
+    document.querySelectorAll(".post-author ul").forEach((author) => {
       if (author.querySelector(".pa-avatar")) return;
       const authorLink = author.querySelector(".pa-author a");
       const alt = (authorLink && authorLink.textContent) || "guest";
@@ -39,7 +39,7 @@ function createDefaultIcon(props: DefaultIcon) {
 
 type SetDefaultIcon = null | string | DefaultIcon;
 
-export default function setDefaultIcon(props: SetDefaultIcon) {
+export default function setDefaultIcon(props: SetDefaultIcon): void {
   // если нет параметра
   if (props == null) {
     return;
