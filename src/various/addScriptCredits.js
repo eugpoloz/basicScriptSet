@@ -122,13 +122,13 @@ function createScriptCredits({
   }
 }
 
-export default function addScriptCredits(props: CreditsProps) {
+export default function addScriptCredits(props: CreditsProps): void {
   let text =
-    (!Array.isArray(props) && idx(props, props => props.text)) ||
+    (!Array.isArray(props) && idx(props, (props) => props.text)) ||
     "Скрипты форума";
   let credits = Array.isArray(props)
     ? props
-    : idx(props, props => props.credits) || [];
+    : idx(props, (props) => props.credits) || [];
 
   const defaultCredits = [
     {
