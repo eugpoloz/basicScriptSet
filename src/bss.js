@@ -20,11 +20,11 @@ import {
   originalUploadedFirst
 } from "./textarea/refactorEditorButtons";
 
-import setDefaultIcon from "./topic/setDefaultIcon";
+// import setDefaultIcon from "./topic/setDefaultIcon";
 import selectCodeBox from "./topic/selectAndCopy";
 import addGuestNameClicks from "./topic/makeGuestNamesClickable";
 
-import createFastLoginLinks from "./various/createFastLoginLinks";
+// import createFastLoginLinks from "./various/createFastLoginLinks";
 import disableProfiles from "./various/disableProfiles";
 import addScriptCredits from "./various/addScriptCredits";
 import fixRusffReputationIssue from "./various/fixRusffReputation";
@@ -41,8 +41,8 @@ restoreLatestPost();
 
 // module exports
 export {
-  setDefaultIcon,
-  createFastLoginLinks,
+  // setDefaultIcon,
+  // createFastLoginLinks,
   addFontsToList,
   countTextareaCharacters,
   selectCodeBox,
@@ -54,9 +54,9 @@ export {
 
 // possible config for reference:
 
-// basicScriptSet.enhanceTextarea();
-// basicScriptSet.setDefaultIcon("http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" /* ссылка */ );
-// basicScriptSet.disableProfiles({
+// bss.enhanceTextarea();
+// bss.setDefaultIcon("http://forumavatars.ru/img/avatars/0019/83/8b/85-1520334341.png" /* ссылка */ );
+// bss.disableProfiles({
 //   profiles: [4],
 //   message: "Don't even think about it!"
 // });
