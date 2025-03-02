@@ -1,12 +1,23 @@
-const path = require("path");
-const { defineConfig } = require("vite");
+import path from "path";
+import commonjs from "vite-plugin-commonjs";
+import { defineConfig } from "vite";
 
-module.exports = defineConfig({
+export default defineConfig({
   build: {
+    plugins: [commonjs()],
+    sourcemap: true,
+    minify: true,
     lib: {
       entry: path.resolve(__dirname, "src/bss.js"),
-      name: "bss",
-      fileName: (format) => `bss.${format}.js`
+      fileName: (format) => `bss.${format}.js`,
+      formats: ["iife"],
+      name: "bss"
+    },
+    esbuild: {
+      charset: "windows-1251"
+    },
+    commonjsOptions: {
+      transformMixedEsModules: true
     }
   }
 });
