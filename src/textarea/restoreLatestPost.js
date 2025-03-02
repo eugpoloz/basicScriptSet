@@ -1,6 +1,5 @@
-// @flow
-function getLatestPost(): string {
-  let reservedPost: string = "";
+function getLatestPost() {
+  let reservedPost = "";
 
   // todo: enhance this w/ topic key getter
   try {

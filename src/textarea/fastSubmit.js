@@ -1,7 +1,4 @@
-// @flow
 import { insertAfter } from "../common";
-
-declare var FORUM: Object;
 
 export default function submitPostOnHotkey() {
   if (typeof FORUM.editor === "object" && typeof FORUM.topic === "object") {
@@ -9,7 +6,7 @@ export default function submitPostOnHotkey() {
     const submitInput = document.querySelector(`input[name="submit"]`);
 
     if (textarea instanceof HTMLTextAreaElement) {
-      function checkWhatsClicked({ key, ctrlKey, metaKey }: KeyboardEvent) {
+      function checkWhatsClicked({ key, ctrlKey, metaKey }) {
         if (key === "Enter" && (ctrlKey || metaKey)) {
           submitInput && submitInput.click();
           textarea.value = "";

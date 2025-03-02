@@ -1,8 +1,4 @@
-// @flow
-declare var FORUM: Object;
-declare var bbcode: Function;
-
-function handleClick({ target, ctrlKey, metaKey, altKey }: MouseEvent) {
+function handleClick({ target, ctrlKey, metaKey, altKey }) {
   if (target instanceof HTMLElement) {
     const { parentNode } = target;
     if (parentNode instanceof HTMLElement) {
@@ -48,7 +44,7 @@ export function addCtrlClicks() {
 
 // сначала оригинал загруженного изображения
 // loaded img original first
-export function originalUploadedFirst(): void {
+export function originalUploadedFirst() {
   if (typeof FORUM.editor === "object") {
     const insertFormat = document.getElementById("image-insert-format");
 

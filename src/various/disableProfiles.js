@@ -1,13 +1,7 @@
-// @flow
-import type { DisabledProfiles } from "../commonTypes";
-
-declare var UserID: any;
-declare var profile: HTMLElement | Function;
-
 export default function disableProfiles({
   profiles = [],
   message = "Редактирование данного профиля для вас запрещено!"
-}: DisabledProfiles) {
+}) {
   if (profiles.length > 0) {
     const innerHTML = `<p style="margin: 1em 0; line-height: 2; text-align: center;">${message}</p>`;
 

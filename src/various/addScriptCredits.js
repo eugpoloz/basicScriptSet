@@ -1,27 +1,10 @@
-// @flow
-declare var $: {
-  jGrowl: Function
-};
-
-type Contact = {
-  url: string, // link
-  title: string // link title
-};
-
-type Credit = {
-  name: string, // script name
-  author: string, // author name
-  url: string, // link to script page
-  contacts?: Array<Contact>
-};
-
-function createCreditHTML({ name, author, url, contacts = [] }: Credit) {
+function createCreditHTML({ name, author, url, contacts = [] }) {
   let contactsHTML = "";
 
   if (contacts.length > 0) {
     contactsHTML = contacts
       .map(
-        ({ url, title }: Contact) =>
+        ({ url, title }) =>
           `<a href="${url}" target="_blank" title="${title}">${title}</a>`
       )
       .join(" | ");
@@ -41,20 +24,7 @@ function createCreditHTML({ name, author, url, contacts = [] }: Credit) {
   `;
 }
 
-export type CreditsProps =
-  | Array<Credit>
-  | {
-      text?: string,
-      credits: Array<Credit>
-    };
-
-function createScriptCredits({
-  text,
-  credits
-}: {
-  text: string,
-  credits: Array<Credit>
-}) {
+function createScriptCredits({ text, credits }) {
   const about = document.getElementById("pun-about");
 
   if (about instanceof HTMLElement) {
@@ -106,7 +76,7 @@ function createScriptCredits({
     const creditsHTML = credits.map(createCreditHTML).join("");
 
     if (triggerEl instanceof HTMLElement) {
-      triggerEl.addEventListener("click", (e: MouseEvent) => {
+      triggerEl.addEventListener("click", (e) => {
         e.preventDefault();
 
         return $.jGrowl(`<ul>${creditsHTML}</ul>`, {
@@ -120,8 +90,8 @@ function createScriptCredits({
   }
 }
 
-export default function addScriptCredits(props: CreditsProps): void {
-  let text: string = "Скрипты форума";
+export default function addScriptCredits(props) {
+  let text = "Скрипты форума";
   let credits = [];
 
   if (props) {

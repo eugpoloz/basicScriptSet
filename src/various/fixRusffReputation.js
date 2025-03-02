@@ -1,11 +1,8 @@
-// @flow
-declare var FORUM: Object;
-
 function fixRusffReputation() {
   const reputation = document.getElementById("pun-reputation");
 
   if (!reputation) {
-    FORUM.PartnerVote = function() {
+    FORUM.PartnerVote = function () {
       return true;
     };
   }

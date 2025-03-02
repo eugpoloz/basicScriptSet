@@ -1,10 +1,3 @@
-// @flow
-
-declare var FORUM: Object;
-type HTMLBodyElementIE8 = HTMLBodyElement & {
-  createTextRange?: Function
-};
-
 // taken from this tutorial
 // http://www.javascriptkit.com/javatutors/copytoclipboard.shtml
 function selectElementText(el) {
@@ -21,7 +14,7 @@ function selectElementText(el) {
 
   // IE8 fallback
   if (document.body != null) {
-    let bodyIE8: HTMLBodyElementIE8 = document.body;
+    let bodyIE8 = document.body;
 
     if (bodyIE8.createTextRange) {
       let range = bodyIE8.createTextRange();
@@ -44,20 +37,14 @@ function copySelectionText() {
 
 // OUR CODE
 // helper func
-function changeText(el?: HTMLElement, innerHTML: string) {
+function changeText(el, innerHTML) {
   if (el) {
     el.innerHTML = innerHTML;
     return;
   }
 }
 
-// our custom code
-type Props = {
-  text?: string,
-  copiedText?: string
-};
-
-export default function selectableCodeBox(props: Props) {
+export default function selectableCodeBox(props) {
   let text = "Выделить и скопировать:";
   let copiedText = "Скопировано в буфер обмена!";
 
@@ -73,7 +60,7 @@ export default function selectableCodeBox(props: Props) {
 
   const textHTML = `<a href="#">${text}</a>`;
 
-  function codeSelector(e: MouseEvent) {
+  function codeSelector(e) {
     e.preventDefault();
     const { target } = e;
 
