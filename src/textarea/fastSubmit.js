@@ -17,7 +17,7 @@ export default function submitPostOnHotkey() {
     }
 
     const previewInput = document.querySelector(`input[name="preview"]`);
-    const html = `<div id="fastsubmit">Для быстрой отправки нажмите <strong>Ctrl+Enter</strong> (<strong>Cmd+Enter</strong>).</div>`;
+    const html = `<span id="fastsubmit" class="fastsubmit">Для быстрой отправки нажмите <strong>Ctrl+Enter</strong> (<strong>Cmd+Enter</strong>).</span>`;
 
     if (previewInput) {
       insertAfter(`input[name="preview"]`, html);
