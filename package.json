@@ -5,6 +5,7 @@
   "files": [
     "dist"
   ],
+  "type": "module",
   "main": "./dist/bss.umd.js",
   "module": "./dist/bss.es.js",
   "exports": {
@@ -14,7 +15,6 @@
     }
   },
   "dependencies": {
-    "prettier": "^3.5.2",
     "vite": "^6.2.0"
   },
   "scripts": {
@@ -22,12 +22,14 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "devDependencies": {
+    "lodash": "^4.17.21",
+    "prettier": "^3.5.2",
+    "vite-plugin-commonjs": "^0.10.4"
+  },
   "prettier": {
     "tabWidth": 2,
     "useTabs": false,
     "trailingComma": "none"
-  },
-  "devDependencies": {
-    "lodash": "^4.17.21"
   }
 }
