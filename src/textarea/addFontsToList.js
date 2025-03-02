@@ -1,12 +1,9 @@
-// @flow
-declare var FORUM: Object;
-
-const fontHMTL = (font: string) =>
+const fontHMTL = (font) =>
   `<div style="font-family:${font}">
     <span>${font}</span> <img onclick="bbcode('[font=${font}]','[/font]')" src="/i/blank.gif">
   </div>`;
 
-export default function addFontsToList(fonts: Array<string>) {
+export default function addFontsToList(fonts) {
   if (typeof FORUM.editor === "object") {
     const fontArea = document.getElementById("font-area");
 

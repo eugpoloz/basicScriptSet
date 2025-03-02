@@ -1,6 +1,3 @@
-// @flow
-declare var FORUM: Object;
-
 function transformNodes() {
   const profileNodes = document.querySelectorAll(".post-author .pa-author");
 
@@ -21,7 +18,7 @@ function transformNodes() {
   }
 }
 
-export default function clickableGuestNames(forum_id?: number): void {
+export default function clickableGuestNames(forum_id) {
   if (typeof FORUM.topic === "object") {
     const current_forum = Number(FORUM.topic.forum_id);
 

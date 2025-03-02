@@ -1,16 +1,13 @@
-// @flow
 import debounce from "lodash/debounce";
 import { insertAfter } from "../common";
 
-declare var FORUM: Object;
-
-export default function countCharacters(counterText?: string = "Символов в сообщении") {
+export default function countCharacters(counterText = "Символов в сообщении") {
   const html = `<div id="charcounter">${counterText}: <span class="charcount">0</span></div>`;
 
   if (typeof FORUM.editor === "object") {
     const textarea = document.getElementById("main-reply");
 
-    function updateCharCounter(value: string) {
+    function updateCharCounter(value) {
       const { length } = value;
 
       const counter = document.querySelector("#charcounter .charcount");
@@ -48,7 +45,7 @@ export default function countCharacters(counterText?: string = "Символов
         "input",
         "selectionchange",
         "propertychange"
-      ].forEach(event => {
+      ].forEach((event) => {
         textarea.addEventListener(event, debouncedUpdate);
       });
     }

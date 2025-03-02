@@ -1,16 +1,11 @@
-// @flow
-import type { FastLogin } from "../commonTypes";
-
-declare var GroupID: any;
-
 export default function createFastLoginLinks({
   after = "navlogin",
   logins = []
-}: FastLogin) {
+}) {
   // if the current user group is a guest one
   if (GroupID === 3) {
     // helper function
-    function handleFastLoginClick({ target }: { target: EventTarget }) {
+    function handleFastLoginClick({ target }) {
       if (target instanceof HTMLElement) {
         const { login, password } = target.dataset;
 
@@ -55,7 +50,7 @@ export default function createFastLoginLinks({
 
       document
         .querySelectorAll("a.js_login")
-        .forEach((node: HTMLElement) =>
+        .forEach((node) =>
           node.addEventListener("click", handleFastLoginClick)
         );
     }

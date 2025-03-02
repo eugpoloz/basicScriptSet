@@ -1,9 +1,4 @@
-// @flow
-declare var FORUM: Object;
-
-import type { DefaultIcon } from "../commonTypes";
-
-function createDefaultIcon(props: DefaultIcon): void {
+function createDefaultIcon(props) {
   // мы предполагаем, что если не передается вообще никаких параметров,
   // то вставлять аватарку надо всегда ПОСЛЕ статуса .pa-title
   const { icon, before = null, after = ".pa-title" } = props;
@@ -37,9 +32,7 @@ function createDefaultIcon(props: DefaultIcon): void {
   }
 }
 
-type SetDefaultIcon = null | string | DefaultIcon;
-
-export default function setDefaultIcon(props: SetDefaultIcon): void {
+export default function setDefaultIcon(props) {
   // если нет параметра
   if (props == null) {
     return;
