@@ -2,7 +2,7 @@ import debounce from "lodash/debounce";
 import { insertAfter } from "../common";
 
 export default function countCharacters(counterText = "Символов в сообщении") {
-  const html = `<div id="charcounter">${counterText}: <span class="charcount">0</span></div>`;
+  const html = `<div id="charcounter" class="charcounter">${counterText}: <span class="charcount">0</span></div>`;
 
   if (typeof FORUM.editor === "object") {
     const textarea = document.getElementById("main-reply");
