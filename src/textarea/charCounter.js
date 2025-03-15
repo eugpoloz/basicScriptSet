@@ -1,4 +1,4 @@
-import debounce from "lodash/debounce";
+import debounce from "lodash-es/debounce";
 import { insertAfter } from "../common";
 
 export default function countCharacters(counterText = "Символов в сообщении") {
