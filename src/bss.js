@@ -20,11 +20,11 @@ import {
   originalUploadedFirst
 } from "./textarea/refactorEditorButtons";
 
-// import setDefaultIcon from "./topic/setDefaultIcon";
+import setDefaultIcon from "./topic/setDefaultIcon";
 import selectCodeBox from "./topic/selectAndCopy";
 import addGuestNameClicks from "./topic/makeGuestNamesClickable";
 
-// import createFastLoginLinks from "./various/createFastLoginLinks";
+import createFastLoginLinks from "./various/createFastLoginLinks";
 import disableProfiles from "./various/disableProfiles";
 import addScriptCredits from "./various/addScriptCredits";
 import fixRusffReputationIssue from "./various/fixRusffReputation";
@@ -41,8 +41,8 @@ restoreLatestPost();
 
 // module exports
 export {
-  // setDefaultIcon,
-  // createFastLoginLinks,
+  setDefaultIcon,
+  createFastLoginLinks,
   addFontsToList,
   countTextareaCharacters,
   selectCodeBox,
