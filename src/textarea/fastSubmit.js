@@ -1,28 +1,22 @@
-import { insertAfter } from "../common";
-
 export default function submitPostOnHotkey() {
   if (typeof FORUM.editor === "object" && typeof FORUM.topic === "object") {
     const textarea = document.querySelector("#main-reply");
     const submitInput = document.querySelector(`input[name="submit"]`);
 
     if (textarea instanceof HTMLTextAreaElement) {
-      function checkWhatsClicked({ key, ctrlKey, metaKey }) {
+      function checkClicked({ key, ctrlKey, metaKey }) {
         if (key === "Enter" && (ctrlKey || metaKey)) {
-          submitInput && submitInput.click();
+          submitInput?.click();
           textarea.value = "";
         }
       }
 
-      textarea.addEventListener("keydown", checkWhatsClicked);
+      textarea.addEventListener("keydown", checkClicked);
     }
 
-    const previewInput = document.querySelector(`input[name="preview"]`);
-    const html = `<span id="fastsubmit" class="fastsubmit">Для быстрой отправки нажмите <strong>Ctrl+Enter</strong> (<strong>Cmd+Enter</strong>).</span>`;
+    const bssTarget = document.querySelector("#bss-target");
+    const html = `<div id="bss-fastsubmit" class="fastsubmit">Для быстрой отправки нажмите <strong>Ctrl+Enter</strong> (<strong>Cmd+Enter</strong>).</div>`;
 
-    if (previewInput) {
-      insertAfter(`input[name="preview"]`, html);
-    } else {
-      insertAfter(`input[name="submit"]`, html);
-    }
+    bssTarget?.insertAdjacentHTML("afterbegin", html);
   }
 }

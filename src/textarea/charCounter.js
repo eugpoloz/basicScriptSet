@@ -1,8 +1,9 @@
 import debounce from "lodash-es/debounce";
-import { insertAfter } from "../common";
 
-export default function countCharacters(counterText = "Символов в сообщении") {
-  const html = `<div id="charcounter" class="charcounter">${counterText}: <span class="charcount">0</span></div>`;
+export default function countCharacters(counterText = "Знаков в сообщении") {
+  const counterId = "bss-charcounter";
+
+  const html = `<div id=${counterId} class="charcounter">${counterText}: <strong class="count">0</strong></div>`;
 
   if (typeof FORUM.editor === "object") {
     const textarea = document.getElementById("main-reply");
@@ -10,7 +11,7 @@ export default function countCharacters(counterText = "Символов в со�
     function updateCharCounter(value) {
       const { length } = value;
 
-      const counter = document.querySelector("#charcounter .charcount");
+      const counter = document.querySelector(`#${counterId} .count`);
       if (counter) {
         counter.innerText = length.toString();
       }
@@ -22,7 +23,8 @@ export default function countCharacters(counterText = "Символов в со�
     );
 
     if (textarea instanceof HTMLTextAreaElement) {
-      insertAfter("p.areafield.required", html);
+      const bssTarget = document.querySelector("#bss-target");
+      bssTarget?.insertAdjacentHTML("beforeend", html);
 
       if (typeof FORUM.topic === "object") {
         const id = window.location.search.substr(4);
